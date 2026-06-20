@@ -20,3 +20,23 @@ class GameManager:
             return {"action": "REDIRECT", "url": game['url']}
         else:
             return {"action": "LOAD_IFRAME", "src": game['src']}
+# gifts_system/gifts_manager.py
+
+class GiftsManager:
+    # ... (الأجزاء السابقة كما هي)
+
+    def get_formatted_invoice(self, sender_name):
+        total_gift_value = sum(item['value'] for item in self.current_invoice)
+        service_fee = total_gift_value * 0.10  # حساب 10% رسوم خدمة
+        grand_total = total_gift_value + service_fee
+        
+        invoice_text = f"\n--- 🧾 فاتورة خدمات شهرار لـ {sender_name} ---\n"
+        for i, entry in enumerate(self.current_invoice, 1):
+            invoice_text += f"{i}. {entry['mic']}: {entry['gift']} ({entry['value']} كوينز)\n"
+        
+        invoice_text += f"----------------------\n"
+        invoice_text += f"إجمالي الهدايا: {total_gift_value} كوينز\n"
+        invoice_text += f"رسوم خدمة الذكاء الاصطناعي (10%): {service_fee} كوينز\n"
+        invoice_text += f"المبلغ الإجمالي المستحق: {grand_total} كوينز\n"
+        invoice_text += f"--- الذكاء الاصطناعي: 'نورتنا يا {sender_name}، كرمك فوق الوصف!' ---"
+        return invoice_tex
