@@ -103,3 +103,14 @@ def _init_(self):
             "royal_lamb": {"price_tier": "tier_3", "region": "Global"},
             "mandi_platter": {"price_tier": "tier_3", "region": "Saudi"}
         }
+# في ملف assets_manager.py
+self.registry.update({
+    # متجر شهريار للرومانسية (هدايا)
+    "rose_bouquet": {"price_tier": "tier_1", "store": "romantic"},
+    "perfume_bottle": {"price_tier": "tier_2", "store": "romantic"},
+    "diamond_ring": {"price_tier": "tier_3", "store": "romantic"},
+    
+    # متجر أباطار (داخليات)
+    "premium_cotton_set": {"price_tier": "tier_1", "store": "apparel"},
+    "silk_robe": {"price_tier": "tier_2", "store": "apparel"}
+})
