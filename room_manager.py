@@ -116,3 +116,18 @@ def update_guest_order(self, user_id, current_item, new_item):
         else:
             print("[AI Butler]: عذراً، قيمة الطلبات غير متطابقة، يرجى اختيار بديل بنفس السعر.")
             return False
+import random
+
+class RoyalButler:
+    def _init_(self):
+        self.jokes = [
+            "أبشر يا غالي، المطبخ رهن إشارتك! بس لا تطلب شي مو موجود في الفئة حقته، خلك ملك!",
+            "تبي تغير؟ تدلل! بس تذكر.. اللي يطلب رخيص وهو كاش، يزعل الشيف شهريار!",
+            "يا هلا والله، المطبخ من المحيط للخليج تحت أمرك.. وش ودك تذوق الحين؟",
+            "طلباتك أوامر يا طويل العمر، بس لا تكثر من الحلا، ودنا نحافظ على الرشاقة!"
+        ]
+
+    def get_response(self, action_type, success=True):
+        if not success:
+            return "يا خوي، ما يصح كذا! تبديل بنفس القيمة.. لا تكسر اقتصاد المجلس!"
+        return random.choice(self.jokes)
