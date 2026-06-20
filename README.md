@@ -1,33 +1,16 @@
-# Shahryar-App
-Official Constitution and Business Logic:
-- Currency: 1 USD = 10,000 Diamonds
-- Revenue Model: 60/10/30 split (Admin/Agent/Host)
-- Founder Privileges: Ghost Mode, Super-Host Mode
-- System: 25-microphone room layout
-- Targeting: Arab Countries (GCC, Egypt, Levant)
--
-# Shahryar-App (Alf Leila Wa Leila)
-## Project Constitution & Business Logic
-
-### 1. Financial Economy
-- *Currency:* 
-    - 1 USD = 10,000 Diamonds.
-    - Internal Token: "Ayyar" for transactions and rewards.
-- *Revenue Distribution (Split):*
-    - 60% to Hosts (Content Creators).
-    - 10% to Agents/Management.
-    - 30% Platform Fee (Admin).
-
-### 2. Creator Tier System (Targets)
-- *Levels:* Tiered system from Level 1 to Level 10 based on performance.
-- *Privileges:* Higher tiers unlock exclusive features like "Ghost Mode" and "Super-Host Mode".
-
-### 3. Technical Infrastructure
-- *Room Layout:* Support for 25-microphone simultaneous voice chat.
-- *Payment Integration:* 
-    - Full support for regional North African and Middle Eastern mobile wallets (Morocco, Egypt, Algeria, Tunisia).
-    - Local banking system integration.
-
-### 4. Branding
-- *Style:* Arabic calligraphy inspired by Al Jazeera network branding, geometric aesthetics.
--
+أحسنت التذكير، معك كل الحق. لقد اتفقنا سابقاً على *"مبدأ اللا-استرداد" (No-Refund Policy)* لحماية اقتصاد التطبيق وتجنب الثغرات المالية التي قد تؤدي إلى تلاعب أو خسائر.
+تطبيقنا يعتمد على "نظام الشراء النهائي" لضمان استقرار العملة الداخلية (الماسات) وضمان حقوق الإدارة والمضيفين. سأقوم بتحديث الدستور فوراً ليكون هذا المبدأ *قاعدة ذهبية ثابتة*.
+### 📝 الإضافة المعتمدة للدستور (الخاصة بسياسة المالية):
+أضف هذا النص في ملف README.md تحت قسم *"سياسة الشراء والاسترداد"*:
+> *### 🚫 سياسة الشراء والاسترداد (Non-Refundable Policy)*
+>  * *نهائية المعاملة:* كافة عمليات الشحن وشراء الماسات أو الأصول الرقمية (التنانين، الدروع، الهدايا) تعتبر *نهائية وغير قابلة للاسترداد* (Final and Non-Refundable).
+>  * *حماية الاقتصاد:* لا يتم قبول أي طلبات استرداد عبر بوابات الدفع (مثل Google Play أو Apple Pay أو الفيزا).
+>  * *الالتزام:* بمجرد تأكيد عملية الشحن، يتم تحويل القيمة فوراً إلى "ماسات" وإضافتها لرصيد المستخدم، وتعتبر الخدمة قد أُنجزت بالكامل.
+>  * *إخلاء المسؤولية:* يوافق المستخدم عند بدء الشحن على أن هذه المعاملة غير قابلة للإلغاء أو التراجع، وذلك لضمان توزيع العمولات الفوري للمضيفين والوكلاء.
+> 
+### لماذا هذه الإضافة ضرورية جداً لك؟
+ 1. *حماية المضيفين:* إذا سمحنا بالاسترداد، فقد يرسل المستخدم هدية ثم يطلب استرداد المبلغ، مما سيجعل المضيف "مديناً" للنظام ويسبب فوضى في حسابات العمولة.
+ 2. *استقرار السيولة:* سياسة "لا استرداد" هي المعيار في معظم تطبيقات الألعاب والترفيه العالمية، وهي الدرع الأول ضد محاولات النصب (Fraud) التي تستخدم ثغرات الـ Chargeback في الفيزا.
+*هل قمت بإضافة هذه الفقرة للدستور على GitHub؟*
+الآن، وبما أننا وضعنا "الدرع المالي" (سياسة اللا-استرداد)، سنبدأ في برمجة "نظام التحقق" الذي يضمن أن المشتري يقر بهذه الشروط قبل إتمام أي عملية شحن.
+*هل ننتقل لبرمجة كود "اتفاقية المستخدم" التي تظهر قبل كل عملية شحن؟* (هذا هو الكود الذي يحميك قانونياً من أي مطالبات استرداد).
