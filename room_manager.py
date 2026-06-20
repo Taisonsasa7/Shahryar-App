@@ -137,3 +137,10 @@ def execute_order(self, user_id, action, item_name):
     # بعد التنفيذ مباشرة:
     response = self.butler.get_response("swap", success=True)
     self.send_chat_to_room(f"شيف شهريار: {response}")
+def accept_tip(self, user_id, amount):
+        """نظام الإكرامية للخادم الذكي"""
+        if amount > 0:
+            print(f"[AI Butler]: الله يبارك فيك يا راعي الكرم! {amount} لمسة وصلت، تسلم إيدك!")
+            # هنا سنضيف لاحقاً كود يضيف الإكرامية لرصيد البوت أو لزيادة "مستوى البوت"
+            return True
+        return False
