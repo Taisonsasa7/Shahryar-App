@@ -1,19 +1,36 @@
 
- 1. الاستيرادات (في أعلى الصفحة)
-from room_manager import RoomManager
-from mining_engine import MiningEngine
-from admin_panel import AdminVault
-from assets_manager import AssetsManager  # <--- هنا نضيف ملف الهدايا الجديد
 
-# 2. التهيئة (تجهيز الأدوات)
-manager = RoomManager()
-miner = MiningEngine()
-vault = AdminVault()
-store = AssetsManager()  # <--- تجهيز المتجر
+[11:26 م، 2026/6/20] taisonsasa8: import streamlit as st
+import pandas as pd
 
-# 3. التشغيل (المنطق)
-# هنا تضع الأوامر التي تريد تشغيلها عند فتح التطبيق
-miner.start_mining("user_01")
-manager.suggest_menu("Morocco")
-vault.collect_earnings(miner)
+# هيكل بيانات الأرباح (تسميات موحدة تماماً)
+def get_all_balances():
+    data = {
+        "المضيف": ["أحمد", "سارة", "محمد", "ليلى"],
+        "إجمالي المبيعات": [2000, 5000, 1500, 3000],
+        "الإدارة (60%)": [1200, 3000, 900, 1800],
+        "المضيف (35%)": [700, 1750, 525, 1050],
+        "الوكيل (5%)": [100, 250, 75, 150]
+    }
+    return pd.DataFrame(data)
 
+# واجهة التطبيق
+st.title("لوحة تحكم أرصدة شهريار 💰")
+
+# عرض الأرصدة
+df = get_all_balances()
+st.subheader("تقرير الأرصدة الشامل (60/35/5)")
+
+# عرض الجدول مع تنسيق العملة
+st.dataframe(df.style.format({
+    "إجمالي المبيعات": "${:,.2f}", 
+    "الإدارة (60%)": "${:,.2f}", 
+    "المضيف (35%)": "${:,.2f}", 
+    "الوكيل (5%)": "${:,.2f}"
+}))
+
+# إجمالي أرباح الإدارة (مطابق تماماً لاسم العمود في الأعلى)
+total_admin = df["الإدارة (60%)"].sum()
+st.sidebar.metric("إجمالي أرباح الإدارة", f"${total_admin:,.2f}")
+
+ 
