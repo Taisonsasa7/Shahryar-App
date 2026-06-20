@@ -140,3 +140,11 @@ assets_manager.py
 إضافات الملحمة الأسطورية
             "mafhdet_goddess": {"name": "مافديت: صائدة الفوضى", "price": 25000, "animation": "blue_electric_claw_slash", "rarity": "Mythic"},
             "dino_warrior": {"name": "فارس الحقبة المنقرضة", "price": 15000, "animation": "dino_warrior_charge", "rarity": "Legendary"}
+# تأثير الدخول الأسطوري المجمع (كما وصفته بالفعل)
+            "fairy_lotus_voyage": {
+                "name": "رحلة الجنية وشراع اللوتس",
+                "price": 30000,  # سعر أعلى لأنه تأثير دخول مجمع ومتحرك بالكامل
+                "animation": "fairy_boat_movement_with_blooming_lotus_shara3",
+                "rarity": "Mythic",
+                "sound": "gentle_water_lapping_with_magical_chimes"
+            }
