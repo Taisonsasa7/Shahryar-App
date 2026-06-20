@@ -200,3 +200,26 @@ def play_entry_animation(self, user_id, gift_id):
         
         # 2. رسالة ترحيبية في الشات
         self.send_chat_message(f"--- الملك {user_id} دخل الغرفة على ظهر الأسد الناري! ---")
+import json
+
+class LionFireEvent:
+    def _init_(self, room_manager):
+        self.manager = room_manager
+
+    def trigger_entrance(self, user_id, room_id):
+        # تجهيز حزمة البيانات (Payload) التي سيستلمها تطبيق المستخدم
+        event_data = {
+            "type": "LEGENDARY_ENTRY",
+            "effect": "LION_FIRE_STORM",
+            "user_id": user_id,
+            "sound": "epic_roar_volcano",
+            "shake_intensity": 10
+        }
+        
+        # إرسال الأمر للسيرفر ليقوم ببثه لجميع الموجودين في الروم
+        self.manager.broadcast_to_room(room_id, json.dumps(event_data))
+        print(f"تم تفعيل عرض الأسد الناري للمستخدم {user_id} في الغرفة {room_id}")
+
+# استدعاء داخل الـ RoomManager عند دخول المستخدم:
+# event = LionFireEvent(self)
+# event.trigger_entrance("user_01", "room_50
