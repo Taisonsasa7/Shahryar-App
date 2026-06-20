@@ -10,3 +10,8 @@ manager.swap_item("user_01", "Saudi", "saudi_gahwa", "moroccan_tea")
 manager.process_tip(20)
 # في ملف main.py
 manager.swap_item("user_01", "Egypt", "koshary", "refissa")
+# في ملف main.py
+manager = RoomManager()
+
+# تجربة الاقتراح التلقائي
+manager.suggest_menu("Morocco") # جرب تغيير الدولة لـ Saudi أو Egypt
