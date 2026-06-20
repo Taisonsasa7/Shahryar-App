@@ -1,0 +1,13 @@
+class AdminVault:
+    def _init_(self):
+        self.total_usd_balance = 0.0  # الرصيد الذي سحبته فعلياً
+        self.pending_mining_pool = 0.0 # ما يعدنه المستخدمون حالياً
+
+    def collect_earnings(self, mining_engine):
+        """سحب الأرباح من المنجم إلى محفظتك الشخصية"""
+        # يقوم بسحب كل ما عُدن من جميع المستخدمين
+        total_mined = mining_engine.get_all_users_total() 
+        self.total_usd_balance += (total_mined * 0.05) # تحويل لـ USD
+        mining_engine.reset_mining_pools() # تصفير التعدين في المنجم لبدء دورة جديدة
+        
+        print(f"تم سحب الأرباح بنجاح! رصيدك الحالي: {self.total_usd_balance} $")
