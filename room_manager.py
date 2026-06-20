@@ -131,3 +131,9 @@ class RoyalButler:
         if not success:
             return "يا خوي، ما يصح كذا! تبديل بنفس القيمة.. لا تكسر اقتصاد المجلس!"
         return random.choice(self.jokes)
+# في ملف room_manager.py
+def execute_order(self, user_id, action, item_name):
+    # المنطق البرمجي للتبديل...
+    # بعد التنفيذ مباشرة:
+    response = self.butler.get_response("swap", success=True)
+    self.send_chat_to_room(f"شيف شهريار: {response}")
