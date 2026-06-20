@@ -1,0 +1,17 @@
+# test_system.py
+import asyncio
+from room_manager import RoomManager
+
+async def run_simulation():
+    # 1. إنشاء الغرفة
+    room = RoomManager()
+    
+    # 2. إضافة التنين الناري (صاحب الكرسي)
+    room.add_user_throne("User_Shahryar", "dragon_fire")
+    
+    # 3. محاكاة دفع الكاشير (لحظة التفاعل)
+    print("--- الكاشير: تم استلام ثمن الهدية ---")
+    await room.handle_new_gift("User_Shahryar", "Recipient_Friend")
+
+if _name_ == "_main_":
+    asyncio.run(run_simulation()
