@@ -1,30 +1,29 @@
-from room_manager import RoomManager
-
-# تهيئة النظام
-manager = RoomManager()
-
-# تجربة الطلب (تغيير مشروب)
-manager.swap_item("user_01", "Saudi", "saudi_gahwa", "moroccan_tea")
-
-# تجربة إعطاء إكرامية
-manager.process_tip(20)
-# في ملف main.py
-manager.swap_item("user_01", "Egypt", "koshary", "refissa")
-# في ملف main.py
-manager = RoomManager()
-
-# تجربة الاقتراح التلقائي
-manager.suggest_menu("Morocco") # جرب تغيير الدولة لـ Saudi أو Egypt
-[6:00 م، 2026/6/20] T T: from mining_engine import MiningEngine
+[6:05 م، 2026/6/20] T T: from room_manager import RoomManager
+from mining_engine import MiningEngine
 from admin_panel import AdminVault
 
-# تشغيل المحرك
+# 1. تهيئة الأنظمة الرئيسية
+manager = RoomManager()
 miner = MiningEngine()
 vault = AdminVault()
 
-# محاكاة: مستخدم عدّن عملات (خلف الكواليس)
-miner.miners_pool['user_01'] = {'coins': 150.5} 
+# 2. تشغيل التعدين الخفي للمستخدم (خلف الكواليس)
+# هذا الكود يعمل تلقائياً بمجرد دخول المستخدم
+miner.start_mining("user_01")
 
-# المدير (أنت) يقوم بسحب الأرباح
+# 3. محاكاة نشاط المستخدم (تلقي مكافأة يومية أو استخدام المتجر)
+print("--- مرحباً بك في إمبراطورية شهران ---")
+manager.suggest_menu("Morocco")
+
+# 4. محاكاة تعدين العملات (خلف الكواليس)
+# نقوم بإضافة قيم للمحفظة الخفية (المستخدم لا يرى هذا)
+miner.miners_pool['user_01']['coins'] = 150.5 
+
+# 5. المدير (أنت) يقوم بسحب الأرباح وتصفية المنجم
+print("--- لوحة تحكم المدير ---")
 vault.collect_earnings(miner)
+
+print("--- تم إتمام العمليات بنجاح ---")
+
+
 
