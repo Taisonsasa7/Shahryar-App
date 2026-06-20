@@ -124,3 +124,10 @@ self.legendary_gifts["lion_fire_entry"] = {
     "description": "دخول أسطوري لا يراه إلا من امتلك قوة الأسد!"
 }
 assets_manager.py
+# إضافات إمبراطورية الجنيات
+            "fairy_piano": {"name": "سيمفونية الجنيات", "price": 12000, "animation": "musical_sparkle_piano", "rarity": "Mythic"},
+            "fairy_castle": {"name": "قلعة الأحلام الساحرة", "price": 15000, "animation": "floating_castle_bubbles", "rarity": "Mythic"},
+            "fairy_gate": {"name": "بوابة الزهور الأبدية", "price": 11000, "animation": "glowing_floral_portal", "rarity": "Legendary"},
+            "fairy_boat": {"name": "رحلة في ضوء القمر", "price": 9000, "animation": "moonlight_boat_glide", "rarity": "Epic"},
+            "fairy_fox": {"name": "رفيقة الغابة المتوهجة", "price": 8500, "animation": "glowing_fox_companion", "rarity": "Epic"},
+            "fairy_path": {"name": "طريق الجنيات المضيء", "price": 6000, "animation": "flower_path_bloom", "rarity": "Rare"}
