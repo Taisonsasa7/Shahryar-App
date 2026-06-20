@@ -176,3 +176,19 @@ class RoomManager:
     def process_tip(self, amount):
         self.mood_level += amount
         print(f"[AI Butler]: الله يبارك فيك! ارتفعت معنوياتي، مزاجي الآن {self.mood_level}%!")
+class BadgeManager:
+    def get_user_badge(self, user_id):
+        user = self.get_user(user_id)
+        
+        if user['pi_verified']: # موثق عبر Pi Browser
+            return "⭐ (Gold Star)"
+        elif user['id_card_verified']: # موثق بالبطاقة محلياً
+            return "🟢 (Green Star)"
+        else:
+            return "No Status"
+
+    def upgrade_to_gold(self, user_id):
+        # عندما يتأكد النظام أن المستخدم وصله توثيق Pi
+        user = self.get_user(user_id)
+        user['pi_verified'] = True
+        user['badge'] = "GOLD_STAR
