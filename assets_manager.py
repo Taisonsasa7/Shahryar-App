@@ -228,3 +228,18 @@ assets_manager.py
                 "rarity": "Divine",
                 "sound": "cinematic_power_surge_and_sharp_metallic_clash"
             }            }            }           }
+# الهدية الملحمية: غضب ملكة الظلام
+            "dark_queen_wrath": {
+                "name": "غضب ملكة الظلام",
+                "price": 99000,
+                "animation": "dark_queen_transformation_with_red_aura",
+                "rarity": "Supreme",
+                "sound": "sinister_cackle_and_fire_crackle_magic"
+# الهدية الملحمية: عملية الإنقاذ الأسطورية
+            "legendary_rescue_operation": {
+                "name": "إنقاذ إمبراطورية شهران",
+                "price": 150000,
+                "animation": "epic_rescue_battle_sequence_full",
+                "rarity": "Ultimate",
+                "sound": "cinematic_battle_score_and_magical_explosion"
+            }
