@@ -1,0 +1,11 @@
+# في ملف room_manager.py
+class StoreButler:
+    def _init_(self, store_type):
+        self.type = store_type
+
+    def get_greeting(self):
+        if self.type == "romantic":
+            return "يا أهلاً بالحب، اختر هدية تليق بمن تهواه.."
+        elif self.type == "apparel":
+            return "مرحباً بك في عالم الراحة والأناقة، تفضل بطلب احتياجاتك.."
+        return "أهلاً بك في متجرنا."
