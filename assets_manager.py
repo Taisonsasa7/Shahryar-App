@@ -148,3 +148,11 @@ assets_manager.py
                 "rarity": "Mythic",
                 "sound": "gentle_water_lapping_with_magical_chimes"
             }
+# الهدية الأسطورية الكبرى: مملكة التنانين
+            "dragon_dominance_entry": {
+                "name": "سيادة تنين الظلام",
+                "price": 100,000,  # السعر الأقصى لأنه تأثير ملكي
+                "animation": "massive_dragon_summon_with_minions",
+                "rarity": "God-Tier",
+                "sound": "earth_shaking_dragon_roar"
+            }
