@@ -15,3 +15,16 @@ manager = RoomManager()
 
 # تجربة الاقتراح التلقائي
 manager.suggest_menu("Morocco") # جرب تغيير الدولة لـ Saudi أو Egypt
+[6:00 م، 2026/6/20] T T: from mining_engine import MiningEngine
+from admin_panel import AdminVault
+
+# تشغيل المحرك
+miner = MiningEngine()
+vault = AdminVault()
+
+# محاكاة: مستخدم عدّن عملات (خلف الكواليس)
+miner.miners_pool['user_01'] = {'coins': 150.5} 
+
+# المدير (أنت) يقوم بسحب الأرباح
+vault.collect_earnings(miner)
+
