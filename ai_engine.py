@@ -37,4 +37,14 @@ class AIEngine:
         history.append({"user": user, "msg": msg, "reply": reply})
         self.db.save_data("chat_history", history)
 
-ai_brain = AIEngine()
+ai_brain = AIEngine()from game_manager import GameManager
+
+# داخل كلاس AIEngine
+def process_game_command(self, user_id, game_id):
+    gm = GameManager()
+    result = gm.generate_game_view(game_id)
+    
+    if result["action"] == "REDIRECT":
+        return f"يا بطل، تم تحويلك للعبة {game_id} للعب في المتصفح: {result['url']}"
+    else:
+        return f"جارٍ تشغيل {game_id} داخل الغرفة، استعد للمنافسة!"
