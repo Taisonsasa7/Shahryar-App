@@ -1,13 +1,40 @@
-# Shahryar Global System - Core Engine
-# المحرك المالي الموحد للتطبيق
+# throne_engine.py - الكود الكامل المحدث
+from chair_registry import get_throne_data
 
-def process_server_logic(amount):
-    # توزيع الأرباح (60% إدارة / 10% وكلاء / 30% مضيفين)
-    distribution = {
-        'admin': amount * 0.60,
-        'agent': amount * 0.10,
-        'host': amount * 0.30
-    }
-    return distribution
+class ThroneEngine:
+    def _init_(self, chair_id):
+        self.chair_id = chair_id
+        self.data = get_throne_data(chair_id)
+        self.state = "idle"  # الحالة الافتراضية: خمول طبيعي
 
-print("Shahryar Core Engine Active"
+    # 1. الذكاء السلوكي (الحركة التلقائية)
+    def run_behavior(self):
+        """الذكاء الاصطناعي: يقرر ماذا يفعل التنين الآن"""
+        if self.state == "idle":
+            self.natural_movement_cycle()
+
+    def natural_movement_cycle(self):
+        """الحركة التلقائية الطبيعية"""
+        print(f"التنين {self.data['name']} يتحرك بحرية في الغرفة ككائن حي.")
+
+    # 2. نظام الهدايا الأسطوري
+    def trigger_gift_sequence(self, receiver_name):
+        """التحول الفوري من الحركة الطبيعية إلى توزيع الهدايا"""
+        self.state = "gift_mode"
+        print(f"تفعيل التنين: توزيع هدية لـ {receiver_name} باستخدام {self.data['gift_effect']}")
+        
+        # استدعاء الحركات المدمجة
+        self.emerge_from_wood()
+        self.orbit_room()
+        
+        self.state = "idle" # العودة للوضع الطبيعي
+
+    # 3. الدوال الحركية الأساسية
+    def emerge_from_wood(self):
+        print(f"خروج من الخشب بصوت: {self.data['sound_effect']}")
+
+    def orbit_room(self):
+        print(f"الطيران في الغرفة بسرعة: {self.data['movement_speed']}")
+
+    def return_to_chair(self):
+        print("العودة إلى داخل الخشب بسلام.")
