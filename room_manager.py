@@ -37,3 +37,26 @@ class RoomManager:
 def activate_noise_cancellation(self):
         """تفعيل عزل الصوت"""
         print("نظام عزل الصوت نشط للغرفة بالكامل.")
+import json
+import os
+
+# ... داخل class RoomManager ...
+
+    def save_room_state(self):
+        """حفظ حالة الغرفة في ملف"""
+        data = {
+            "active_thrones": {uid: throne.data for uid, throne in self.active_thrones.items()},
+            "muted_users": list(self.muted_users)
+        }
+        with open("room_data.json", "w") as f:
+            json.dump(data, f)
+        print("تم حفظ حالة الغرفة بنجاح.")
+
+    def load_room_state(self):
+        """استعادة حالة الغرفة عند التشغيل"""
+        if os.path.exists("room_data.json"):
+            with open("room_data.json", "r") as f:
+                data = json.load(f)
+                # هنا يمكنك إعادة بناء الـ active_thrones
+                self.muted_users = set(data["muted_users"])
+            print("تم استعادة بيانات الغرفة من آخر جلسة.")
