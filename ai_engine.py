@@ -67,3 +67,32 @@ def process_clothing_purchase(user_id, item_category, user_current_balance):
         return f"تم شراء الزي بنجاح، رصيدك المتبقي: {result['remaining']}"
     else:
         return "عذراً، رصيدك لا يكفي لشراء هذا الزي."
+# ai_engine.py - الربط النهائي
+from avatar_system.avatar_shop import AvatarShop
+from avatar_system.animation_controller import AnimationController
+
+# تعريف الكائنات
+shop = AvatarShop()
+avatar = AnimationController("Shahryar_Avatar")
+
+def handle_user_action(user_id, action_type, user_balance, mic_id=None):
+    """
+    هذه الدالة الموحدة تستقبل طلب المستخدم (شراء أو حركة) وتنفذه
+    """
+    # إذا كان المستخدم يريد حركة
+    if action_type in ["shisha", "dance", "perfume", "hair_style"]:
+        return avatar.execute_action(action_type)
+    
+    # إذا كان يريد التحرك للمايك
+    elif action_type == "move_to_mic":
+        return avatar.navigate_to_mic(mic_id)
+        
+    return "طلب غير مفهوم"
+
+def purchase_and_equip(user_id, item_category, user_balance):
+    # إتمام عملية الشراء
+    result = shop.purchase_item(user_balance, item_category)
+    if result["status"] == "success":
+        # بعد الشراء الناجح، نقوم بتجهيز الزي الجديد (نظرياً)
+        return f"تم شراء {item_category} بنجاح! الأفاتار يرتديه الآن."
+    return result["message"]
