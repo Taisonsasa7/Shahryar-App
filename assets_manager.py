@@ -123,3 +123,4 @@ self.legendary_gifts["lion_fire_entry"] = {
     "price": 10000, # سعر ملكي
     "description": "دخول أسطوري لا يراه إلا من امتلك قوة الأسد!"
 }
+assets_manager.py
