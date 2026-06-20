@@ -144,3 +144,35 @@ def accept_tip(self, user_id, amount):
             # هنا سنضيف لاحقاً كود يضيف الإكرامية لرصيد البوت أو لزيادة "مستوى البوت"
             return True
         return False
+import random
+from assets_manager import AssetsManager
+
+class RoyalButler:
+    def _init_(self):
+        self.greetings = {
+            "Saudi": ["يا هلا ومرحبا يا طويل العمر،", "أبشر بعزك،"],
+            "Morocco": ["مرحبا بك أسي،", "على الراس والعين يا غالي،"],
+            "Egypt": ["يا باشا نورتنا،", "من عنيا الاتنين يا برنس،"]
+        }
+
+    def get_response(self, region):
+        return random.choice(self.greetings.get(region, ["أهلاً بك،"]))
+
+class RoomManager:
+    def _init_(self):
+        self.assets = AssetsManager()
+        self.butler = RoyalButler()
+        self.mood_level = 50
+
+    def swap_item(self, user_id, user_region, current_item, new_item):
+        if self.assets.can_swap(current_item, new_item):
+            greeting = self.butler.get_response(user_region)
+            print(f"[AI Butler]: {greeting} تم تبديل {current_item} بـ {new_item}!")
+            return True
+        else:
+            print("[AI Butler]: عذراً يا غالي، القيم غير متطابقة، لا يمكن التبديل!")
+            return False
+
+    def process_tip(self, amount):
+        self.mood_level += amount
+        print(f"[AI Butler]: الله يبارك فيك! ارتفعت معنوياتي، مزاجي الآن {self.mood_level}%!")
