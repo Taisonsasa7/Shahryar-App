@@ -48,3 +48,8 @@ def process_game_command(self, user_id, game_id):
         return f"يا بطل، تم تحويلك للعبة {game_id} للعب في المتصفح: {result['url']}"
     else:
         return f"جارٍ تشغيل {game_id} داخل الغرفة، استعد للمنافسة!"
+from justice_system import justice_system
+
+# داخل كلاس AIEngine، أضف هذه الدالة:
+    def handle_user_appeal(self, user_id, reason, violation_id):
+        return justice_system.submit_appeal(user_id, reason, violation_id)
