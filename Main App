@@ -1,0 +1,18 @@
+# main.py - مفتاح تشغيل نظام شهريار الرقمي
+import asyncio
+from room_manager import RoomManager
+
+async def start_shahryar_system():
+    print("--- جاري تشغيل نظام شهريار الرقمي ---")
+    room = RoomManager()
+    
+    # 1. تعريف المستخدمين (يمكنك سحبهم من قاعدة بيانات لاحقاً)
+    room.add_user_throne("User_1", "dragon_fire")
+    room.add_user_throne("User_2", "elephant_throne")
+    
+    # 2. بدء نشاط الغرفة التلقائي
+    print("نظام التفاعل التلقائي نشط...")
+    await room.start_room_activity()
+
+if _name_ == "_main_":
+    asyncio.run(start_shahryar_system())
