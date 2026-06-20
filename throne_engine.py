@@ -30,3 +30,20 @@ class ThroneEngine:
         """الحركة التلقائية في الغرفة"""
         if self.state == "idle":
             print(f"{self.data['name']} يتحرك بشكل طبيعي..
+# تحديث داخل throne_engine.py
+
+def natural_movement(self):
+    entity = self.data['entity_type']
+    if entity == "dragon":
+        print(f"{self.data['name']} يطير في أرجاء الغرفة.")
+    elif entity == "elephant":
+        print(f"{self.data['name']} يتمشى بخطوات ثقيلة.")
+    elif entity == "peacock":
+        print(f"{self.data['name']} يستعرض جمال ريشه.")
+    elif entity == "lion":
+        print(f"{self.data['name']} يزأر ويتمشى بهيبة.")
+
+def deliver_gift(self, receiver_id):
+    # هنا يتم توزيع الهدايا بناءً على الكائن
+    # سيعرف النظام تلقائياً الكائن من الـ data['entity_type']
+    print(f"يقوم {self.data['name']} بتوزيع الهدية لـ {receiver_id} بطريقته الخاصة!")
