@@ -34,3 +34,6 @@ class RoomManager:
 
     def activate_noise_cancellation(self):
         print("نظام عزل الصوت نشط للغرفة بالكامل.")
+def activate_noise_cancellation(self):
+        """تفعيل عزل الصوت"""
+        print("نظام عزل الصوت نشط للغرفة بالكامل.")
