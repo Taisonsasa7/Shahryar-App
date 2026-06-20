@@ -1,6 +1,6 @@
 
 
-mport streamlit as st
+emport streamlit as st
 import pandas as pd
 
 # هيكل بيانات الأرباح (تسميات موحدة تماماً)
