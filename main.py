@@ -8,3 +8,5 @@ manager.swap_item("user_01", "Saudi", "saudi_gahwa", "moroccan_tea")
 
 # تجربة إعطاء إكرامية
 manager.process_tip(20)
+# في ملف main.py
+manager.swap_item("user_01", "Egypt", "koshary", "refissa")
