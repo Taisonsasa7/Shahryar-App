@@ -131,3 +131,9 @@ assets_manager.py
             "fairy_boat": {"name": "رحلة في ضوء القمر", "price": 9000, "animation": "moonlight_boat_glide", "rarity": "Epic"},
             "fairy_fox": {"name": "رفيقة الغابة المتوهجة", "price": 8500, "animation": "glowing_fox_companion", "rarity": "Epic"},
             "fairy_path": {"name": "طريق الجنيات المضيء", "price": 6000, "animation": "flower_path_bloom", "rarity": "Rare"}
+# إضافات أسرار الباب المسحور
+            "dream_weaver": {"name": "نساج الأحلام الأبدية", "price": 18000, "animation": "star_dust_dreamcatcher", "rarity": "Mythic"},
+            "lotus_princess": {"name": "أميرة زهرة اللوتس", "price": 16000, "animation": "lotus_blooming_reveal", "rarity": "Legendary"},
+            "forest_guardian": {"name": "حارس الغابة الأبيض", "price": 15000, "animation": "white_stag_magic_aura", "rarity": "Legendary"},
+            "enchanted_bridge": {"name": "ممر العوالم المضيئة", "price": 12000, "animation": "glowing_fungi_path", "rarity": "Epic"},
+            "fairy_musician": {"name": "عازفة أوتار النجوم", "price": 10000, "animation": "starry_violin_melody", "rarity": "Epic"}
