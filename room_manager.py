@@ -95,3 +95,10 @@ class RoyalHospitalitySystem:
         self.ai_chef_announce(user_id, feast['description'])
         
         return total_price
+# في ملف room_manager.py
+    def swap_gift(self, user_id, old_item_id, new_item_id):
+        """دالة تبديل المشروبات بنفس القيمة"""
+        # (هنا سنضيف المنطق الخاص بجلب البيانات ومقارنة الأسعار)
+        print(f"جاري تبديل {old_item_id} بـ {new_item_id}...")
+        # يمكنك إضافة منطق التحقق من السعر هنا لاحقاً
+        return True
