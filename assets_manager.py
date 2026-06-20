@@ -50,3 +50,20 @@ class AssetsManager:
         tier_a = self.registry.get(item_a, {}).get("price_tier")
         tier_b = self.registry.get(item_b, {}).get("price_tier")
         return tier_a == tier_b and tier_a is not Non
+import random
+
+class AssetsManager:
+    def _init_(self):
+        # قاعدة بيانات المشروبات والأكلات بالفئات
+        self.registry = {
+            "saudi_gahwa": {"price_tier": "tier_1", "region": "Saudi"},
+            "moroccan_tea": {"price_tier": "tier_1", "region": "Morocco"},
+            "egyptian_karkade": {"price_tier": "tier_1", "region": "Egypt"},
+            "koshary": {"price_tier": "tier_2", "region": "Egypt"},
+            "refissa": {"price_tier": "tier_2", "region": "Morocco"}
+        }
+
+    def can_swap(self, item_a, item_b):
+        tier_a = self.registry.get(item_a, {}).get("price_tier")
+        tier_b = self.registry.get(item_b, {}).get("price_tier")
+        return tier_a == tier_b and tier_a is not None
