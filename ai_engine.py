@@ -52,4 +52,18 @@ from justice_system import justice_system
 
 # داخل كلاس AIEngine، أضف هذه الدالة:
     def handle_user_appeal(self, user_id, reason, violation_id):
-        return justice_system.submit_appeal(user_id, reason, violation_id)
+        return justice_system.submit_appeal(user_id, reason, violation_id)# ai_engine.py - إضافة جزء ربط المتجر
+from avatar_system.avatar_shop import AvatarShop
+
+shop = AvatarShop()
+
+def process_clothing_purchase(user_id, item_category, user_current_balance):
+    # نتحقق من إمكانية الشراء
+    result = shop.purchase_item(user_current_balance, item_category)
+    
+    if result["status"] == "success":
+        # هنا يتم إرسال أمر "تغيير الملابس" للأفاتار
+        # سأقوم بتجهيز كود "مشغل الحركات" (Animation Controller) في الخطوة القادمة
+        return f"تم شراء الزي بنجاح، رصيدك المتبقي: {result['remaining']}"
+    else:
+        return "عذراً، رصيدك لا يكفي لشراء هذا الزي."
