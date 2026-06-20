@@ -192,3 +192,11 @@ class BadgeManager:
         user = self.get_user(user_id)
         user['pi_verified'] = True
         user['badge'] = "GOLD_STAR
+def play_entry_animation(self, user_id, gift_id):
+    if gift_id == "lion_fire_entry":
+        # 1. إرسال أمر لكل المستخدمين في الغرفة بتشغيل الأنيميشن
+        self.broadcast_to_room("SCREEN_SHAKE", duration=2)
+        self.broadcast_to_room("PLAY_FIRE_LION_ANIMATION", asset="lion_fire_spawn")
+        
+        # 2. رسالة ترحيبية في الشات
+        self.send_chat_message(f"--- الملك {user_id} دخل الغرفة على ظهر الأسد الناري! ---")
