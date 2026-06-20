@@ -9,3 +9,31 @@ class StoreButler:
         elif self.type == "apparel":
             return "مرحباً بك في عالم الراحة والأناقة، تفضل بطلب احتياجاتك.."
         return "أهلاً بك في متجرنا."
+[5:44 م، 2026/6/20] T T: import datetime
+
+# أضف هذا داخل كلاس RoomManager
+    def check_daily_wheel(self, user_id):
+        # 1. جلب وقت آخر تدوير للعجلة
+        last_spin = self.user_data.get(user_id, {}).get('last_spin')
+        now = datetime.datetime.now()
+        
+        # 2. التحقق: هل مر 24 ساعة؟
+        if last_spin and (now - last_spin).total_seconds() < 86400:
+            remaining = 86400 - (now - last_spin).total_seconds()
+            return f"عذراً، العجلة ستفتح بعد {int(remaining/3600)} ساعة."
+        
+        # 3. إذا مر الوقت، نسمح له باللف
+        return "READY_TO_SPIN"
+
+    def execute_spin(self, user_id):
+        # تنفيذ اللف
+        prize = self.spin_the_wheel() # (نستخدم كود عجلة الحظ اللي صممناه)
+        
+        # تحديث وقت التدوير الحالي
+        self.user_data[user_id]['last_spin'] = datetime.datetime.now()
+        
+        # إضافة الجائزة للتارجت (المِسات)
+        self.add_to_target(user_id, prize['value'])
+        
+        return f"مبروك! لقد كسبت {prize['name']}. تم إضافتها لتارجت حسابك!"
+
