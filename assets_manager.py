@@ -199,3 +199,32 @@ assets_manager.py
                 "rarity": "God-Tier",
                 "sound": "majestic_hawk_scream_and_glimmer_sparkle"
             }            }       }            }        }
+# الهدية الرومانسية: رفيق الروح الأسطوري
+            "soul_companion_romantic": {
+                "name": "رفيق الروح الأسطوري",
+                "price": 55000,
+                "animation": "romantic_walk_with_mystical_companion",
+                "rarity": "Mythic",
+                "sound": "soft_piano_melody_and_footsteps"
+ # الهدية التنافسية: إعلان التحدي الملكي
+            "royal_challenge_entry": {
+                "name": "إعلان التحدي الملكي",
+                "price": 75000,
+                "animation": "queen_challenge_gesture_with_aura",
+                "rarity": "God-Tier",
+                "sound": "cinematic_drums_and_royal_trumpet_flare"
+# الهدية الأسطورية: تجلي الأثير السماوي
+            "celestial_ether_manifest": {
+                "name": "تجلي الأثير السماوي",
+                "price": 95000,
+                "animation": "celestial_portal_manifestation_aura",
+                "rarity": "Divine",
+                "sound": "ethereal_cosmic_chimes_and_light_shimmer"
+# الهدية الملكية: هالة المحارب الملكي
+            "royal_warrior_aura": {
+                "name": "هالة المحارب الملكي",
+                "price": 85000,
+                "animation": "royal_warrior_stance_with_energy_shockwaves",
+                "rarity": "Divine",
+                "sound": "cinematic_power_surge_and_sharp_metallic_clash"
+            }            }            }           }
