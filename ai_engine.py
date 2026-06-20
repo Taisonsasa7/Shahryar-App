@@ -1,21 +1,24 @@
-لعقل المدبر لـ Shahryar-App
+
+
+import google.generativeai as genai
 from data_store import db
+
+# تفعيل مفتاح الـ API الخاص بك
+genai.configure(api_key="YOUR_API_KEY")
 
 class AIEngine:
     def _init_(self):
         self.db = db
+        self.model = genai.GenerativeModel('gemini-1.5-pro')
 
     def process_intelligence(self, user_id, message, room_id):
-        # 1. تحليل اللهجة واللغة (الذكاء الاصطناعي يحدد لغة المستخدم)
-        # 2. فلترة المحتوى (منع الإساءة)
-        # 3. الرد الذكي (طب، رياضة، تاريخ...)
+        # 1. صياغة السؤال للمحرك الذكي
+        prompt = f"المستخدم {user_id} يسأل في الغرفة {room_id}: {message}. أجب بنفس لهجة المستخدم وكن خبيراً في مجاله."
         
-        # مثال: حفظ الرسالة في الذاكرة ليتعلم النظام منها
-        history = self.db.get_data().get("chat_history", [])
-        history.append({"user": user_id, "msg": message})
-        self.db.save_data("chat_history", history)
-        
-        return f"AI_Response: [الذكاء الاصطناعي يعالج الرسالة الآن من {user_id}]"
+        # 2. الحصول على الرد الفعلي
+        response = self.model.generate_content(prompt)
+        ai_reply = response.text
 
-# الربط الفوري
-ai_brain = AIEngine()
+        # 3. حفظ المحادثة في الذاكرة (DataStore)
+        history = self.db.get_data().get('chat_history', [])
+        history.append({"user": user_id, "msg"…
