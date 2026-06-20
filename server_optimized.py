@@ -1,13 +1,13 @@
-# Shahryar Global System - Core Engine
-# المحرك المالي الموحد للتطبيق
+# استيراد الإعدادات من ملف config.py
+from config import ADMIN_SHARE, AGENT_SHARE, HOST_SHARE
 
 def process_server_logic(amount):
-    # توزيع الأرباح (60% إدارة / 10% وكلاء / 30% مضيفين)
+    # استخدام النسب المحددة في ملف الإعدادات
     distribution = {
-        'admin': amount * 0.60,
-        'agent': amount * 0.10,
-        'host': amount * 0.30
+        'admin': amount * ADMIN_SHARE,
+        'agent': amount * AGENT_SHARE,
+        'host': amount * HOST_SHARE
     }
     return distribution
 
-print("Shahryar Core Engine Active"
+print("Shahryar Core Engine Connected to Config")
