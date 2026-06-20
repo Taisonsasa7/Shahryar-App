@@ -156,3 +156,46 @@ assets_manager.py
                 "rarity": "God-Tier",
                 "sound": "earth_shaking_dragon_roar"
             }
+ هدية الحصان المجنح (هدية البنات المميزة)
+            "winged_unicorn_companion": {
+                "name": "حصان الضياء السابح",
+                "price": 25000, 
+                "animation": "unicorn_walking_and_grazing_with_glow",
+                "rarity": "Legendary",
+                "sound": "magical_chimes_and_nature_sounds"
+    # إضافات ملحمة العناصر (المشهد المجمع)
+            "elements_saga_entry": {
+                "name": "ملحمة العنقاء: صراع العناصر",
+                "price": 45000,
+                "animation": "phoenix_lion_transformation_sequence",
+                "rarity": "Mythic",
+                "sound": "epic_fire_and_water_clash_sound"
+# الهدية الغامضة: مملكة الأرواح المفقودة
+            "lost_spirits_gate": {
+                "name": "بوابة الأرواح المفقودة",
+                "price": 35000,
+                "animation": "dimension_portal_with_ghostly_figures",
+                "rarity": "Mythic",
+                "sound": "mysterious_whispering_and_chimes"
+# إضافات حضور ملكة الذئاب
+            "wolf_queen_entry": {
+                "name": "حضور ملكة الذئاب",
+                "price": 38000,
+                "animation": "wolf_queen_aura_pulse",
+                "rarity": "Legendary",
+                "sound": "wolf_howl_and_mystical_energy_surge"
+     الهدية الرومانسية: لقاء الحمامة الملكي
+            "royal_dove_romantic_entry": {
+                "name": "لقاء الحمامة الملكي",
+                "price": 40000,
+                "animation": "romantic_dove_walk_and_castle_entry",
+                "rarity": "Mythic",
+                "sound": "gentle_harp_music_and_dove_cooing"
+# الهدية الملكية: ملكة الصقور
+            "falcon_queen_aura": {
+                "name": "ملكة الصقور: الريش الذهبي",
+                "price": 80000,
+                "animation": "falcon_flight_with_golden_feathers_trail",
+                "rarity": "God-Tier",
+                "sound": "majestic_hawk_scream_and_glimmer_sparkle"
+            }            }       }            }        }
