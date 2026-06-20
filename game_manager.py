@@ -40,3 +40,13 @@ class GiftsManager:
         invoice_text += f"المبلغ الإجمالي المستحق: {grand_total} كوينز\n"
         invoice_text += f"--- الذكاء الاصطناعي: 'نورتنا يا {sender_name}، كرمك فوق الوصف!' ---"
         return invoice_tex
+# هذا الجزء لاختبار الكود داخل نفس الملف
+if _name_ == "_main_":
+    # إنشاء نسخة للاختبار
+    test_engine = MiningEngine()
+    
+    # تجربة سريعة للتحقق
+    print("--- اختبار المحرك المالي ---")
+    diamonds = test_engine.calculate_diamonds(5)
+    print(f"نتيجة الاختبار: 5 دولار تساوي {diamonds} ماسة.")
+    print("---------------------------")
