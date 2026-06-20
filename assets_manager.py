@@ -114,3 +114,12 @@ self.registry.update({
     "premium_cotton_set": {"price_tier": "tier_1", "store": "apparel"},
     "silk_robe": {"price_tier": "tier_2", "store": "apparel"}
 })
+# أضف هذا إلى قاموس الهدايا الأسطورية
+self.legendary_gifts["lion_fire_entry"] = {
+    "name": "عرش الأسد الناري",
+    "rarity": "Legendary",
+    "effect_type": "full_screen_animation",
+    "animation_asset": "fire_lion_spawn", # هذا الرابط الذي سيشغل صورتك
+    "price": 10000, # سعر ملكي
+    "description": "دخول أسطوري لا يراه إلا من امتلك قوة الأسد!"
+}
