@@ -243,3 +243,36 @@ assets_manager.py
                 "rarity": "Ultimate",
                 "sound": "cinematic_battle_score_and_magical_explosion"
             }
+# الهدية الملحمية: صندوق اللعنة الأبدية
+            "eternal_curse_box": {
+                "name": "صندوق اللعنة الأبدية",
+                "price": 120000,
+                "animation_url": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3Vyc2U0Ym94YW5pbWF0aW9uX2dpathfL2dm/eternal_curse_transformation.gif",
+                "rarity": "Mythic",
+                "sound": "dark_magic_box_open_with_screaming_effect"
+# الهدية الملكية: تجلي العرش الذهبي
+            "golden_throne_gift": {
+                "name": "تجلي العرش الذهبي",
+                "price": 200000,
+                "animation_url": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ29sZGVuX3Rocm9uZV9tYW5pZmVzdGF0aW9u/golden_throne_transition.gif",
+                "rarity": "Legendary",
+                "sound": "ethereal_angelic_choir_with_golden_chime"
+    # الهدية الفائقة: انفجار الجوهرة الكونية
+            "cosmic_gem_burst_gift": {
+                "name": "انفجار الجوهرة الكونية",
+                "price": 250000,
+                "animation_url": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29zbWljX2dlbV9idXJzdF9wcm8/cosmic_gem_sequence.gif",
+                "rarity": "Legendary/Ultra",
+                "sound": "space_nebula_explosion_with_crystal_shimmer"
+# ملف: entry_effects.py
+# تجميع كافة تأثيرات دخول اللاعبين إلى الغرفة
+
+ENTRY_EFFECTS = {
+    "queen_of_light_entry": {
+        "name": "تجلي ملكة الضوء",
+        "animation_url": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZW50cnlfZWZmZWN0X3F1ZWVuX2xpZ2h0/queen_of_light_entry.gif",
+        "duration": 5.0, # ثواني
+        "sound_effect": "celestial_light_burst_aura"
+    },
+    # سيتم إضافة باقي الدخوليات هنا لاحقاً
+}            }        }            }
