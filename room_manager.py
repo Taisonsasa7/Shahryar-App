@@ -60,3 +60,19 @@ import os
                 # هنا يمكنك إعادة بناء الـ active_thrones
                 self.muted_users = set(data["muted_users"])
             print("تم استعادة بيانات الغرفة من آخر جلسة.")
+from assets_manager import AssetsManager
+
+class RoomManager:
+    def _init_(self):
+        self.assets = AssetsManager()  # ربط المدير بالأصول
+        # باقي الإعدادات...
+
+    def get_user_requested_item(self, category, item_id):
+        """جلب أي عنصر (وليمة/خلفية) من المخزن الداخلي"""
+        path = self.assets.get_asset(category, item_id)
+        if path:
+            print(f"تم تحميل الأصول بنجاح من: {path}")
+            return path
+        else:
+            print("عذراً، العنصر غير موجود في المخزن الداخلي.")
+            return None
