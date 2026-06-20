@@ -137,3 +137,6 @@ assets_manager.py
             "forest_guardian": {"name": "حارس الغابة الأبيض", "price": 15000, "animation": "white_stag_magic_aura", "rarity": "Legendary"},
             "enchanted_bridge": {"name": "ممر العوالم المضيئة", "price": 12000, "animation": "glowing_fungi_path", "rarity": "Epic"},
             "fairy_musician": {"name": "عازفة أوتار النجوم", "price": 10000, "animation": "starry_violin_melody", "rarity": "Epic"}
+إضافات الملحمة الأسطورية
+            "mafhdet_goddess": {"name": "مافديت: صائدة الفوضى", "price": 25000, "animation": "blue_electric_claw_slash", "rarity": "Mythic"},
+            "dino_warrior": {"name": "فارس الحقبة المنقرضة", "price": 15000, "animation": "dino_warrior_charge", "rarity": "Legendary"}
