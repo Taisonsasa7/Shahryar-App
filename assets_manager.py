@@ -82,3 +82,24 @@ class AssetsManager:
         tier_a = self.registry.get(item_a, {}).get("price_tier")
         tier_b = self.registry.get(item_b, {}).get("price_tier")
         return tier_a == tier_b and tier_a is not Non
+def _init_(self):
+        # قاعدة البيانات الموسعة
+        self.registry = {
+            # مشروبات الفئة الأولى (Tier 1)
+            "saudi_gahwa": {"price_tier": "tier_1", "region": "Saudi"},
+            "moroccan_tea": {"price_tier": "tier_1", "region": "Morocco"},
+            "egyptian_karkade": {"price_tier": "tier_1", "region": "Egypt"},
+            "turkish_coffee": {"price_tier": "tier_1", "region": "Global"},
+            "moroccan_atay_shiba": {"price_tier": "tier_1", "region": "Morocco"},
+            
+            # أكلات الفئة الثانية (Tier 2)
+            "koshary": {"price_tier": "tier_2", "region": "Egypt"},
+            "refissa": {"price_tier": "tier_2", "region": "Morocco"},
+            "mansaf_cup": {"price_tier": "tier_2", "region": "Saudi"},
+            "tajine": {"price_tier": "tier_2", "region": "Morocco"},
+            "molokhia": {"price_tier": "tier_2", "region": "Egypt"},
+            
+            # ولائم الفئة الثالثة (Tier 3)
+            "royal_lamb": {"price_tier": "tier_3", "region": "Global"},
+            "mandi_platter": {"price_tier": "tier_3", "region": "Saudi"}
+        }
