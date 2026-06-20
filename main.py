@@ -1,6 +1,6 @@
 
 
-[11:26 م، 2026/6/20] taisonsasa8: import streamlit as st
+mport streamlit as st
 import pandas as pd
 
 # هيكل بيانات الأرباح (تسميات موحدة تماماً)
