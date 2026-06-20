@@ -76,3 +76,22 @@ class RoomManager:
         else:
             print("عذراً، العنصر غير موجود في المخزن الداخلي.")
             return None
+class RoyalHospitalitySystem:
+    def _init_(self, room_data):
+        self.room_data = room_data
+
+    def serve_royal_feast(self, user_id, feast_type):
+        # 1. إعداد الهدية مع تأثيرات البخار والحركة
+        feast = self.get_feast_assets(feast_type)
+        
+        # 2. إضافة 10% ضريبة ملكية
+        total_price = feast['price'] * 1.10
+        
+        # 3. "بث" الأكلة في الغرفة (الرندرة البصرية)
+        # هذا الأمر يخبر كل المتصلين: "ارسموا الخروف المندي هنا"
+        self.render_object_to_room(user_id, feast['asset_path'], effect="steam_animation")
+        
+        # 4. إعلان الذكاء الاصطناعي (الشيف)
+        self.ai_chef_announce(user_id, feast['description'])
+        
+        return total_price
