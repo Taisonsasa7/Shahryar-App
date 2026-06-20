@@ -102,3 +102,17 @@ class RoyalHospitalitySystem:
         print(f"جاري تبديل {old_item_id} بـ {new_item_id}...")
         # يمكنك إضافة منطق التحقق من السعر هنا لاحقاً
         return True
+def update_guest_order(self, user_id, current_item, new_item):
+        """الخادم الذكي يغير الطلب بنفس القيمة"""
+        # 1. التحقق من تطابق الأسعار
+        if self.assets.get_price(current_item) == self.assets.get_price(new_item):
+            # 2. تغيير الشكل (Rendering)
+            self.remove_from_room(user_id, current_item)
+            self.place_in_room(user_id, new_item)
+            
+            # 3. رد الذكاء الاصطناعي التفاعلي
+            print(f"[AI Butler]: أبشر يا سيدي، تم استبدال {current_item} بـ {new_item} فوراً!")
+            return True
+        else:
+            print("[AI Butler]: عذراً، قيمة الطلبات غير متطابقة، يرجى اختيار بديل بنفس السعر.")
+            return False
