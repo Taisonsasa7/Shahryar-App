@@ -1,70 +1,51 @@
 import streamlit as st
-import streamlit.components.v1 as components
-import requests
 
-# Pi Network Authentication Component
-def pi_auth_component():
-    return components.html(
-        """
-        <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-        <script>
-            const Pi = window.Pi;
-            Pi.init({ version: "2.0", sandbox: true });
+# إعداد الصفحة لتناسب تصميم التطبيق الداكن
+st.set_page_config(page_title="شهريار", layout="centered")
 
-            async function authenticate() {
-                try {
-                    await Pi.init();
-                    const auth = await Pi.authenticate(["username"], onIncompletePaymentFound);
-                    window.parent.postMessage({
-                        type: 'pi_auth_success',
-                        token: auth.accessToken,
-                        user: auth.user.username
-                    }, '*');
-                } catch (err) {
-                    window.parent.postMessage({ type: 'pi_auth_error', error: err }, '*');
-                }
-            }
+# إضافة نمط CSS مخصص ليعطي نفس شكل الألوان والبطاقات في "1000142843.jpg"
+st.markdown("""
+    <style>
+    .stApp { background-color: #0e0e0e; color: white; }
+    .room-card { 
+        background-color: #1a1a1a; 
+        border-radius: 15px; 
+        padding: 15px; 
+        margin-bottom: 15px; 
+        border: 1px solid #333;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
-            function onIncompletePaymentFound(payment) {
-                console.log("Incomplete payment found", payment);
-            }
+# العنوان العلوي
+st.title("شهريار")
 
-            // Auto-trigger on load
-            authenticate();
-            
-            // Expose for manual button
-            window.manualAuth = authenticate;
-        </script>
-        """,
-        height=0,
-    )
+# شريط التصنيفات العلوي
+tabs = st.tabs(["🔥 الكل", "💬 دردشة", "🎮 ألعاب", "🎵 موسيقى"])
 
-# Backend Token Validation
-def validate_pi_token(access_token):
-    headers = {"Authorization": f"Bearer {access_token}"}
-    response = requests.get("https://api.minepi.com/v2/me", headers=headers)
-    if response.status_code == 200:
-        return response.json()
-    return None
+# محتوى تجريبي يشبه توزيع البطاقات في "1000142843.jpg"
+col1, col2 = st.columns(2)
 
-# App Logic
-st.title("Shahryar System")
-pi_auth_component()
+rooms = [
+    {"name": "أليكس", "title": "سهرة ألعاب", "views": 234, "likes": 89},
+    {"name": "صوفيا", "title": "موسيقى لايف", "views": 567, "likes": 312},
+    {"name": "كريم", "title": "دردشة عامة", "views": 123, "likes": 45},
+    {"name": "دي جي ماكس", "title": "راب سيشن", "views": 456, "likes": 234},
+]
 
-# Handle JS communication
-if 'pi_user' not in st.session_state:
-    st.session_state.pi_user = None
+for i, room in enumerate(rooms):
+    with (col1 if i % 2 == 0 else col2):
+        st.markdown(f"""
+        <div class="room-card">
+            <h4 style="margin:0;">{room['name']}</h4>
+            <p style="font-size: 0.8em; color: #aaa;">{room['title']}</p>
+            <p style="font-size: 0.8em;">👁️ {room['views']} | ❤️ {room['likes']}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-# Manual Sign-in Button
-if st.button("Sign in with Pi"):
-    components.html("<script>window.manualAuth();</script>", height=0)
-
-# JS Response Listener
-response = st.experimental_get_query_params() # Simplified for structure
-# In a full deployment, use streamlit-javascript or custom component 
-# to capture the postMessage event from the JS component.
-
-if st.session_state.pi_user:
-    st.write(f"Welcome, {st.session_state.pi_user}")
-else:
-    st.warning("Please authenticate with Pi to continue."
+# زر الإضافة العائم (في الأسفل)
+st.markdown("""
+    <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);">
+        <button style="background-color: #d63384; border-radius: 50%; width: 60px; height: 60px; border: none; color: white; font-size: 30px;">+</button>
+    </div>
+""", unsafe_allow_html=Tru
