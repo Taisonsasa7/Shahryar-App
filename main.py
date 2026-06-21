@@ -1,7 +1,7 @@
 import streamlit as st
 
 # إعداد الصفحة الرئيسية
-st.set_page_config(page_title="ألف ليلة وليلة", layout="wide")
+st.title("🌙 مرحباً بك في لوحة تحكم شهريار")
 
 st.title("🌙 مرحباً بك في عالم ألف ليلة وليلة")
 st.subheader("المنصة الترفيهية المتكاملة")
