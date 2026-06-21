@@ -1,17 +1,40 @@
-# main.py - مفتاح تشغيل نظام شهريار الرقمي
 import asyncio
+import gspread
+from google.oauth2.service_account import Credentials
 from room_manager import RoomManager
 
+# --- إعدادات الاتصال بـ Google Sheets ---
+# ملاحظة: تأكد من وجود ملف 'credentials.json' في نفس مجلد المشروع
+def get_sheet_data():
+    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+    creds = Credentials.from_service_account_file('credentials.json', scopes=scope)
+    client = gspread.authorize(creds)
+    sheet = client.open("Shahryar_Data").sheet1
+    return sheet
+
 async def start_shahryar_system():
-    print("--- جاري تشغيل نظام شهريار الرقمي ---")
+    print("--- بدء تشغيل نظام شهريار الرقمي ---")
+    
+    # 1. الاتصال بقاعدة البيانات
+    try:
+        sheet = get_sheet_data()
+        print("--- تم الاتصال بقاعدة البيانات بنجاح ---")
+    except Exception as e:
+        print(f"خطأ في الاتصال بالبيانات: {e}")
+        return
+
+    # 2. بدء إدارة الغرف
     room = RoomManager()
     
-    # 1. تعريف المستخدمين (يمكنك سحبهم من قاعدة بيانات لاحقاً)
-    room.add_user_throne("User_1", "dragon_fire")
-    room.add_user_throne("User_2", "elephant_throne")
-    
-    # 2. بدء نشاط الغرفة التلقائي
-    print("نظام التفاعل التلقائي نشط...")
+    # 3. جلب البيانات من الجدول (مثال: قراءة الصفوف)
+    data = sheet.get_all_records()
+    for row in data:
+        # هنا يتم ربط الغرف الموجودة في الجدول بنظامك
+        room.add_user_throne(row['المضيف'], row['الغرفة'])
+        print(f"تم تفعيل الغرفة: {row['الغرفة']} للمضيف: {row['المضيف']}")
+
+    # 4. بدء نشاط النظام
+    print("--- نظام التفاعل الرقمي نشط الآن ---")
     await room.start_room_activity()
 
 if _name_ == "_main_":
