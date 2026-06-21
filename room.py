@@ -1,24 +1,40 @@
 import streamlit as st
+import time
+import sys
+import os
 
-st.set_page_config(page_title="داخل الغرفة", layout="wide")
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(_file_), '..')))
+from gifts_system.gifts_db import gifts
+from avatar_system.clothing_db import arab_heritage_wardrobe
+from avatar_system.animation_controller import AnimationController
 
-# نفس تصميم الخلفية
-st.markdown("""
-    <style>
-    .stApp { background-color: #121016; color: white; }
-    .room-container { background-color: #1E1A23; padding: 30px; border-radius: 20px; }
-    </style>
-    """, unsafe_allow_html=True)
+if 'avatar' not in st.session_state:
+    st.session_state.avatar = AnimationController("الأفاتار")
 
-room_name = st.session_state.get("current_room", "الغرفة")
-st.title(f"🎤 {room_name}")
+st.title("🎤 الغرفة التفاعلية - نظام الخصوصية")
 
-st.markdown('<div class="room-container">', unsafe_allow_html=True)
-st.write("### أدوات التحكم")
-col1, col2 = st.columns(2)
-with col1: st.button("🔊 فتح الصوت")
-with col2: st.button("🔇 كتم الصوت")
-st.markdown('</div>', unsafe_allow_html=True)
+# اختيار المايك للهمس
+target_mic = st.selectbox("اختر المايك للذهاب إليه:", [f"مايك {i}" for i in range(1, 26)])
 
-if st.button("الخروج للرئيسية"):
-    st.switch_page("main.py")
+if st.button("التحرك للهمس"):
+    # 1. تنفيذ المشي
+    mic_number = int(target_mic.split()[1])
+    path = st.session_state.avatar.walk_to_mic(mic_number)
+    
+    for step in path:
+        st.write(f"🚶 {step}")
+        time.sleep(0.5) # وقت المشي الواقعي
+    
+    # 2. تفعيل وضع الهمس بعد الوصول
+    st.session_state.avatar.whisper_mode()
+    st.success("لقد وصلت! حالة الخصوصية مفعلة الآن.")
+    
+    # 3. التأخير الزمني قبل "فتح الصوت"
+    with st.spinner("جاري الاستعداد للكلام..."):
+        time.sleep(2) # ينتظر المستخدم ثواني
+        st.info("تم كتم الصوت عن الآخرين، أنت الآن في وضع الهمس.")
+
+else:
+    # الحركة الطبيعية
+    action = st.session_state.avatar.get_random_natural_action()
+    st.write(f"الحالة الطبيعية: الأفاتار يقوم بـ {action}")
