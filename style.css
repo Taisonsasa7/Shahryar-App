@@ -1,0 +1,40 @@
+/* تنسيقات تطبيق شهريار الملكية */
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+}
+
+h2 {
+    color: #D4AF37; /* ذهبي */
+    border-bottom: 2px solid #800080; /* بنفسجي */
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+form {
+    background: #1a1a1a;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid #800080;
+}
+
+input {
+    display: block;
+    margin: 15px auto;
+    padding: 12px;
+    width: 300px;
+    border: 1px solid #D4AF37;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #800080; /* بنفسجي */
+    color: #D4AF37; /* ذهبي */
+    padding: 12px 30px;
+    border: 2px solid #D4AF37;
+    border-radius: 5px;
+    cursor: pointer;
+    fo…
