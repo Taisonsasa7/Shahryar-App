@@ -17,4 +17,4 @@ with col2:
 with col3:
     st.button("🎮 قسم الألعاب")
 
-st.sidebar.info("مرحباً بك! اختر القسم الذي تود زيارته
+st.sidebar.info("مرحباً بك! اختر القسم الذي تود زيارته.")
