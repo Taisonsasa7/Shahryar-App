@@ -1,0 +1,30 @@
+import streamlit as st
+
+# دالة حماية صفحة الإدارة بكلمة مرور
+def check_password():
+    password = st.text_input("أدخل كلمة مرور الإدارة:", type="password")
+    if password == "123456": # يمكنك تغيير الرقم لأي كلمة مرور تفضلها
+        return True
+    elif password:
+        st.error("كلمة المرور غير صحيحة!")
+        return False
+    return False
+
+st.title("🔒 لوحة تحكم الإدارة المالية")
+
+if check_password():
+    st.success("تم الدخول بنجاح إلى لوحة التحكم")
+    
+    # هنا تضع تقاريرك المالية التي كنت تعمل عليها
+    st.write("### التقرير المالي للوكالات")
+    data = {
+        "الغرفة": ["غرفة 1", "غرفة 2"],
+        "المضيف": ["Ahmed", "Sara"],
+        "إجمالي المبيعات": ["$1,000.00", "$850.00"],
+        "N60": ["$600.00", "$500.00"]
+    }
+    import pandas as pd
+    df = pd.DataFrame(data)
+    st.table(df)
+else:
+    st.warning("هذه الصفحة مخصصة للإدارة فقط.")
