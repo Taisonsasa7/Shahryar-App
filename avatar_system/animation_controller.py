@@ -1,34 +1,36 @@
-# avatar_system/animation_controller.py
+
+import random
 
 class AnimationController:
-    def _init_(self, avatar_name):
-        self.avatar_name = avatar_name
-        self.current_state = "idle"
+    def _init_(self, name):
+        self.name = name
+        self.current_state = "idle_natural"
+        self.current_mic = 1  # البداية من المايك 1
 
-    def execute_action(self, action_type):
-        """
-        يتحكم في الحركات الواقعية: الرقص، الشيشة، العطر، تمشيط الشعر.
-        """
-        animations = {
-            "shisha": "إمساك الشيشة مع حركات تنفس واقعية",
-            "perfume": "حركة رش العطر بأسلوب أنيق",
-            "hair_style": "تمشيط الشعر بحركة هادئة",
-            "dance": "بدء وصلة رقص متناغمة مع الموسيقى",
-            "idle_natural": "حركة عشوائية للعين وتلفت طبيعي"
-        }
+    def execute_action(self, action):
+        self.current_state = action
+        return f"الأفاتار يقوم بـ {action}"
+
+    def get_random_natural_action(self):
+        # الحركات الطبيعية التي تجعل الأفاتار حياً
+        natural_actions = ["idle_natural", "hair_style", "perfume", "dance"]
+        return random.choice(natural_actions)
+
+    def walk_to_mic(self, target_mic_number):
+        # منطق المشي من المايك الحالي إلى المايك المستهدف
+        path = []
+        while self.current_mic != target_mic_number:
+            if self.current_mic < target_mic_number:
+                self.current_mic += 1
+            else:
+                self.current_mic -= 1
+            path.append(f"يمشي إلى مايك {self.current_mic}")
         
-        action = animations.get(action_type)
-        if action:
-            self.current_state = action_type
-            return f"[{self.avatar_name}] يقوم الآن بـ: {action}"
-        return "حركة غير معروفة"
+        self.current_state = "at_target_mic"
+        path.append(f"وصل إلى مايك {target_mic_number}، جاهز للهمس.")
+        return path
 
-    def navigate_to_mic(self, mic_id):
-        """
-        تحريك الأفاتار بسلاسة (دوران 360 درجة) للوصول للمايك.
-        """
-        return f"الأفاتار يتحرك 360 درجة ويتجه نحو المايك رقم: {mic_id}"
-
-# تفعيل السلوك الطبيعي للشخصية
-def setup_natural_behaviors():
-    return "تم ضبط نظام العيون التلقائي وحركات الخمول الواق
+    def whisper_mode(self):
+        # وضعية الهمس (التي طلبتها)
+        self.current_state = "whispering"
+        return "الأفاتار يميل برأسه ويهمس في الأذن - الخصوصية مفعلة."
