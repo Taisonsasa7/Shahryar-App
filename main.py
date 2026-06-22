@@ -24,4 +24,4 @@ with st.sidebar:
     amount = st.number_input("أدخل المبلغ بالدولار", min_value=0.0)
     if st.button("حساب التوزيع"):
         result = shahryar_system.trigger_event("GIFT_RECEIVED", amount)
-        st.json(result
+       st.json(result) 
