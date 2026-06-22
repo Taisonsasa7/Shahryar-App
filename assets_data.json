@@ -1,5 +1,13 @@
+
 {
   "gifts": {
-    "lion_fire_entry": {"name": "عرش الأسد الناري", "price": 10000},
-    "fairy_piano": {"name": "سيمفونية الجنيات", "price": 12000}
-  }
+    "lion_fire_entry": {
+      "name": "عرش الأسد الناري",
+      "price": 10000,
+      "rarity": "Legendary"
+    },
+    "fairy_piano": {
+      "name": "سيمفونية الجنيات",
+      "price": 12000,
+      "rarity": "Mythic"
+    }
