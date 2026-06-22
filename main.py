@@ -1,4 +1,4 @@
-[1:19 ص، 2026/6/23] taisonsasa8: import streamlit as st
+ import streamlit as st
 
 st.set_page_config(page_title="منصة شهريار", layout="wide")
 
