@@ -1,17 +1,26 @@
-# test_system.py
-import asyncio
-from room_manager import RoomManager
+from assets_manager import AssetsManager
+from chair_registry import get_throne_data
 
-async def run_simulation():
-    # 1. إنشاء الغرفة
-    room = RoomManager()
-    
-    # 2. إضافة التنين الناري (صاحب الكرسي)
-    room.add_user_throne("User_Shahryar", "dragon_fire")
-    
-    # 3. محاكاة دفع الكاشير (لحظة التفاعل)
-    print("--- الكاشير: تم استلام ثمن الهدية ---")
-    await room.handle_new_gift("User_Shahryar", "Recipient_Friend")
+class RoomManager:
+    def _init_(self):
+        self.assets = AssetsManager()
+        self.room_thrones = {}
 
-if _name_ == "_main_":
-    asyncio.run(run_simulation()
+    def add_user_throne(self, user_id, chair_id):
+        """ربط الكرسي بالمستخدم بعد التحقق من وجود بياناته"""
+        throne_data = get_throne_data(chair_id)
+        if throne_data:
+            self.room_thrones[user_id] = throne_data
+            print(f"تم إضافة {throne_data['name']} للمستخدم {user_id}")
+        else:
+            print(f"خطأ: الكرسي {chair_id} غير موجود في السجل.")
+
+    async def handle_new_gift(self, sender_id, recipient_id):
+        """محاكاة معالجة الهدية"""
+        if sender_id in self.room_thrones:
+            throne = self.room_thrones[sender_id]
+            print(f"جارٍ تشغيل تأثير: {throne['gift_effect']} الخاص بـ {throne['name']}")
+            # هنا سيتم ربط الهدية بالأصول (Assets) لاحقاً
+            return True
+        print("خطأ: المستخدم لا يملك كرسي فعال.")
+        return False
