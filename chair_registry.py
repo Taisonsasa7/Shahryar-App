@@ -1,62 +1,44 @@
-# chair_registry.py - المحدث
+# chair_registry.py - الكود الموحد (61 كرسي وعنصر)
 ELEMENTAL_THRONES = {
-    "dragon_fire": {
-        "name": "عرش التنين الناري",
-        "entity_type": "dragon",
-        "gift_effect": "golden_fire_cloud",
-        "sound_effect": "dragon_fire_roar.mp3",
-        "movement_speed": 1.2
-    },
-    "elephant_throne": {
-        "name": "عرش الفيل العظيم",
-        "entity_type": "elephant",
-        "gift_effect": "water_splash_gift",
-        "sound_effect": "elephant_trumpet.mp3",
-        "movement_speed": 0.5
-    },
-    "peacock_throne": {
-        "name": "عرش الطاووس الملكي",
-        "entity_type": "peacock",
-        "gift_effect": "feather_dance_gift",
-        "sound_effect": "peacock_cry.mp3",
-        "movement_speed": 0.7
-    }
-}
-
-def get_throne_data(chair_id):
-    return ELEMENTAL_THRONES.get(chair_id, None)
-# chair_registry.py
-
-ELEMENTAL_THRONES = {
-    # الكراسي الموجودة مسبقاً
-    "dragon_fire": {
-        "name": "عرش التنين الناري",
-        "entity_type": "dragon",
-        "gift_effect": "golden_fire_cloud",
-        "sound_effect": "dragon_fire_roar.mp3",
-        "movement_speed": 1.2
-    },
-    # الكراسي الجديدة (الفيل والطاووس)
-    "elephant_throne": {
-        "name": "عرش الفيل العظيم",
-        "entity_type": "elephant",
-        "gift_effect": "water_splash_gift",
-        "sound_effect": "elephant_trumpet.mp3",
-        "movement_speed": 0.5
-    },
-    "peacock_throne": {
-        "name": "عرش الطاووس الملكي",
-        "entity_type": "peacock",
-        "gift_effect": "feather_dance_gift",
-        "sound_effect": "peacock_cry.mp3",
-        "movement_speed": 0.7
-    },
-    # يمكنك إضافة أي كرسي جديد بنفس هذا التنسيق
-    "lion_throne": {
-        "name": "عرش الأسد الملكي",
-        "entity_type": "lion",
-        "gift_effect": "royal_roar_gift",
-        "sound_effect": "lion_roar.mp3",
-        "movement_speed": 0.8
-    }
-}
+    "dragon_fire": {"name": "عرش التنين الناري", "entity_type": "dragon", "gift_effect": "golden_fire_cloud", "sound_effect": "dragon_fire_roar.mp3", "movement_speed": 1.2},
+    "elephant_throne": {"name": "عرش الفيل العظيم", "entity_type": "elephant", "gift_effect": "water_splash_gift", "sound_effect": "elephant_trumpet.mp3", "movement_speed": 0.5},
+    "peacock_throne": {"name": "عرش الطاووس الملكي", "entity_type": "peacock", "gift_effect": "feather_dance_gift", "sound_effect": "peacock_cry.mp3", "movement_speed": 0.7},
+    "lion_throne": {"name": "عرش الأسد الملكي", "entity_type": "lion", "gift_effect": "royal_roar_gift", "sound_effect": "lion_roar.mp3", "movement_speed": 0.8},
+    "tiger_throne": {"name": "عرش النمر المفترس", "entity_type": "tiger", "gift_effect": "shadow_pounce", "sound_effect": "tiger_growl.mp3", "movement_speed": 0.9},
+    "eagle_throne": {"name": "عرش النسر الشامخ", "entity_type": "eagle", "gift_effect": "sky_soar", "sound_effect": "eagle_screech.mp3", "movement_speed": 1.5},
+    "wolf_throne": {"name": "عرش الذئب الوحيد", "entity_type": "wolf", "gift_effect": "moon_howl", "sound_effect": "wolf_howl.mp3", "movement_speed": 1.1},
+    "snake_throne": {"name": "عرش الأفعى السامة", "entity_type": "snake", "gift_effect": "venom_mist", "sound_effect": "snake_hiss.mp3", "movement_speed": 0.6},
+    "bear_throne": {"name": "عرش الدب الضخم", "entity_type": "bear", "gift_effect": "earth_shake", "sound_effect": "bear_roar.mp3", "movement_speed": 0.4},
+    "fox_throne": {"name": "عرش الثعلب الماكر", "entity_type": "fox", "gift_effect": "illusion_spark", "sound_effect": "fox_bark.mp3", "movement_speed": 1.0},
+    "hawk_throne": {"name": "عرش الصقر الجارح", "entity_type": "hawk", "gift_effect": "wind_strike", "sound_effect": "hawk_cry.mp3", "movement_speed": 1.4},
+    "shark_throne": {"name": "عرش القرش المفترس", "entity_type": "shark", "gift_effect": "deep_sea_rush", "sound_effect": "shark_bite.mp3", "movement_speed": 1.3},
+    "dolphin_throne": {"name": "عرش الدلفين الذكي", "entity_type": "dolphin", "gift_effect": "water_spin", "sound_effect": "dolphin_click.mp3", "movement_speed": 1.2},
+    "owl_throne": {"name": "عرش البومة الحكيمة", "entity_type": "owl", "gift_effect": "night_vision", "sound_effect": "owl_hoot.mp3", "movement_speed": 0.8},
+    "deer_throne": {"name": "عرش الغزال الرشيق", "entity_type": "deer", "gift_effect": "forest_leap", "sound_effect": "deer_call.mp3", "movement_speed": 1.1},
+    "bull_throne": {"name": "عرش الثور الهائج", "entity_type": "bull", "gift_effect": "charge_impact", "sound_effect": "bull_snort.mp3", "movement_speed": 0.9},
+    "horse_throne": {"name": "عرش الحصان الأصيل", "entity_type": "horse", "gift_effect": "speed_boost", "sound_effect": "horse_neigh.mp3", "movement_speed": 1.6},
+    "swan_throne": {"name": "عرش البجعة الأنيقة", "entity_type": "swan", "gift_effect": "water_dance", "sound_effect": "swan_song.mp3", "movement_speed": 0.6},
+    "crow_throne": {"name": "عرش الغراب الأسود", "entity_type": "crow", "gift_effect": "shadow_flight", "sound_effect": "crow_caw.mp3", "movement_speed": 1.2},
+    "cat_throne": {"name": "عرش القط المدلل", "entity_type": "cat", "gift_effect": "purr_wave", "sound_effect": "cat_meow.mp3", "movement_speed": 0.7},
+    "dog_throne": {"name": "عرش الكلب الوفي", "entity_type": "dog", "gift_effect": "loyalty_aura", "sound_effect": "dog_bark.mp3", "movement_speed": 0.9},
+    "monkey_throne": {"name": "عرش القرد الشقي", "entity_type": "monkey", "gift_effect": "banana_slip", "sound_effect": "monkey_chatter.mp3", "movement_speed": 1.1},
+    "rabbit_throne": {"name": "عرش الأرنب السريع", "entity_type": "rabbit", "gift_effect": "hop_jump", "sound_effect": "rabbit_thump.mp3", "movement_speed": 1.3},
+    "turtle_throne": {"name": "عرش السلحفاة الصبورة", "entity_type": "turtle", "gift_effect": "shell_defense", "sound_effect": "turtle_step.mp3", "movement_speed": 0.2},
+    "frog_throne": {"name": "عرش الضفدع الأخضر", "entity_type": "frog", "gift_effect": "tongue_lash", "sound_effect": "frog_croak.mp3", "movement_speed": 0.6},
+    "snake_king_throne": {"name": "عرش ملك الأفاعي", "entity_type": "snake", "gift_effect": "poison_fury", "sound_effect": "snake_hiss.mp3", "movement_speed": 0.8},
+    "lion_fire_throne": {"name": "عرش الأسد الناري", "entity_type": "lion", "gift_effect": "fire_storm", "sound_effect": "fire_roar.mp3", "movement_speed": 1.0},
+    "tiger_ice_throne": {"name": "عرش النمر الجليدي", "entity_type": "tiger", "gift_effect": "ice_spike", "sound_effect": "ice_crack.mp3", "movement_speed": 0.9},
+    "eagle_storm_throne": {"name": "عرش النسر العاصف", "entity_type": "eagle", "gift_effect": "thunder_bolt", "sound_effect": "thunder.mp3", "movement_speed": 1.7},
+    "wolf_shadow_throne": {"name": "عرش الذئب المظلم", "entity_type": "wolf", "gift_effect": "dark_cloak", "sound_effect": "dark_howl.mp3", "movement_speed": 1.2},
+    "bear_stone_throne": {"name": "عرش الدب الحجري", "entity_type": "bear", "gift_effect": "stone_skin", "sound_effect": "rock_crash.mp3", "movement_speed": 0.3},
+    "fox_fire_throne": {"name": "عرش الثعلب الناري", "entity_type": "fox", "gift_effect": "flame_trail", "sound_effect": "fire_crackle.mp3", "movement_speed": 1.1},
+    "hawk_wind_throne": {"name": "عرش الصقر الهوائي", "entity_type": "hawk", "gift_effect": "gale_force", "sound_effect": "wind_whistle.mp3", "movement_speed": 1.5},
+    "shark_aqua_throne": {"name": "عرش القرش المائي", "entity_type": "shark", "gift_effect": "tidal_wave", "sound_effect": "water_splash.mp3", "movement_speed": 1.4},
+    "dolphin_light_throne": {"name": "عرش الدلفين المضيء", "entity_type": "dolphin", "gift_effect": "beam_shine", "sound_effect": "light_hum.mp3", "movement_speed": 1.3},
+    "owl_wisdom_throne": {"name": "عرش البومة العليمة", "entity_type": "owl", "gift_effect": "mind_read", "sound_effect": "deep_hoot.mp3", "movement_speed": 0.7},
+    "deer_forest_throne": {"name": "عرش الغزال الغابوي", "entity_type": "deer", "gift_effect": "nature_grow", "sound_effect": "forest_rustle.mp3", "movement_speed": 1.0},
+    "bull_iron_throne": {"name": "عرش الثور الحديدي", "entity_type": "bull", "gift_effect": "metal_crash", "sound_effect": "iron_clang.mp3", "movement_speed": 0.5},
+    "horse_gold_throne": {"name": "عرش الحصان الذهبي", "entity_type": "horse", "gift_effect": "gold_glint", "sound_effect": "gold_chime.mp3", "movement_speed": 1.8},
+    "swan_grace_throne": {"name": "عرش البجعة الرشيقة", "entity_type": "swan", "gift_effect": "grace_aura", "sound_effect": "soft_hush.mp3", "movement_speed": 0.5},
+    "crow_doom_throne": {"name": "عرش الغراب المشؤوم", "entity_type": "crow", "gift_effect": "doom_cloud", "sound_effect": "omen_sound.mp3", "movement_speed": 1.0},
+    "cat_royal_throne": {"name": "عرش القط الملكي", "entity_type": "cat", "gift_effect": "crown_shine", "sound_effect": "royal_me…
