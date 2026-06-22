@@ -2,19 +2,26 @@ import streamlit as st
 from shahryar_core import shahryar_system
 
 st.set_page_config(page_title="شهريار", layout="wide")
-
 st.title("🌙 شهريار")
 
-# جلب الغرف
+# جلب الغرف من المحرك الموحد
 rooms = shahryar_system.get_all_rooms()
 
-# عرض الغرف والصور
+# عرض الغرف بشكل شبكي
 cols = st.columns(len(rooms))
 for i, room in enumerate(rooms):
     with cols[i]:
-        # عرض الصورة (يجب أن تكون الصور في مجلد باسم images)
+        # عرض صورة الغرفة (تأكد من وجود الصور في مجلد باسم images)
         st.image(f"images/{room['id']}.jpg", use_container_width=True)
         
-        # عرض زر الدخول
+        # زر الدخول
         if st.button(f"دخول {room['name']}", key=room['id']):
-            st.success(f"جاري الدخول إلى {room['name']}...")
+            st.success(f"أنت الآن في {room['name']}")
+
+# تجربة دالة الحساب المالية (اختياري)
+with st.sidebar:
+    st.header("إدارة الأرباح")
+    amount = st.number_input("أدخل المبلغ بالدولار", min_value=0.0)
+    if st.button("حساب التوزيع"):
+        result = shahryar_system.trigger_event("GIFT_RECEIVED", amount)
+        st.json(result
