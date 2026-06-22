@@ -55,4 +55,4 @@ for i, room in enumerate(rooms):
             <h3>{room['name']} {badge}</h3>
         </div>
         """, unsafe_allow_html=True)
-        st.button(f"دخول", key=f"btn_{room['id']}")
+        st.button(f"دخول", key=f"btn_{room['id']}
