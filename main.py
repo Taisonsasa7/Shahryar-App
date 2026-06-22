@@ -8,36 +8,30 @@ st.markdown("""
     .room-card { 
         background-color: #1a1a1a; 
         border: 2px solid #FFD700; 
-        padding: 20px; 
+        padding: 10px; 
         border-radius: 15px; 
         margin: 10px; 
         text-align: center; 
     }
-    h3 { color: #FFD700; }
     </style>
     """, unsafe_allow_html=True)
 
 st.title("🌙 منصة شهريار العالمية")
 
-# نظام الملايين: لا نولد الغرف مسبقاً، بل نولدها عند الطلب
 def get_rooms(page=1):
-    # نحدد 20 غرفة فقط في كل صفحة لضمان السرعة
     start = (page - 1) * 20 + 1
     end = start + 20
-    return [{"id": i, "name": f"غرفة رقم {i}"} for i in range(start, end)]
+    return [{"id": i, "name": f"Room {i}", "image": "https://picsum.photos/300/200"} for i in range(start, end)]
 
-# اختيار الصفحة (للتنقل بين الملايين)
-page = st.number_input("رقم الصفحة (للتنقل بين الملايين)", min_value=1, value=1)
-
+page = st.number_input("Page Number", min_value=1, value=1)
 rooms = get_rooms(page)
-cols = st.columns(4)
 
+cols = st.columns(4)
 for i, room in enumerate(rooms):
     with cols[i % 4]:
-        st.markdown(f"""
-        <div class="room-card">
-            <h3>{room['name']} 👑</h3>
-        </div>
-        """, unsafe_allow_html=True)
-        st.button("دخول", key=f"btn_{room['id']}")
+        st.markdown('<div class="room-card">', unsafe_allow_html=True)
+        st.image(room["image"], use_container_width=True)
+        st.subheader(room["name"])
+        st.button("Enter", key=f"btn_{room['id']}")
+        st.markdown('</div>', unsafe_allow_html=True)
 
