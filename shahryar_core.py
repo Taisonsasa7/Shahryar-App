@@ -1,18 +1,18 @@
 class ShahryarCore:
     def _init_(self):
-        # تعريف الغرف كقائمة من القواميس تحتوي على الاسم فقط
+        # تعريف الغرف كقائمة بسيطة
         self.rooms = [{"name": "غرفة الألعاب"}, {"name": "غرفة الموسيقى"}]
     
     def get_all_rooms(self):
+        # إرجاع القائمة مباشرة
         return self.rooms
 
     def calculate_money(self, amount):
-        # عملية حسابية بسيطة
         return {
             "إجمالي": amount,
             "حصة الإدارة": amount * 0.60,
             "حصة المضيف": amount * 0.30
         }
 
-# إنشاء الكائن الموحد
+# إنشاء الكائن لاستخدامه في الملف الآخر
 shahryar_system = ShahryarCore()
