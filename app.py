@@ -37,3 +37,7 @@ for i, room in enumerate(rooms):
             <p style="font-size: 0.8em; color: #aaa;">{room['title']}</p>
         </div>
         """, unsafe_allow_html=True)
+from data_store import DataStore
+
+# تعريف القاعدة هنا (مرة واحدة فقط)
+db = DataStore()
