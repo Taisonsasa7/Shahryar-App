@@ -1,7 +1,7 @@
-mport streamlit as st
+import streamlit as st
 
-# إعدادات التصميم
 st.set_page_config(page_title="منصة شهريار", layout="wide")
+
 st.markdown("""
     <style>
     .stApp { background-color: #0d0d0d; color: #ffffff; }
@@ -19,18 +19,17 @@ st.markdown("""
 
 st.title("🌙 منصة شهريار العالمية")
 
-# دالة لجلب الغرف
-def get_rooms_from_db(search_query):
-    all_rooms = [{"id": i, "name": f"Room {i}"} for i in range(1, 1000001)]
-    if search_query:
-        return [r for r in all_rooms if search_query.lower() in r['name'].lower()]
-    return all_rooms[:20]
+# نظام الملايين: لا نولد الغرف مسبقاً، بل نولدها عند الطلب
+def get_rooms(page=1):
+    # نحدد 20 غرفة فقط في كل صفحة لضمان السرعة
+    start = (page - 1) * 20 + 1
+    end = start + 20
+    return [{"id": i, "name": f"غرفة رقم {i}"} for i in range(start, end)]
 
-# نظام البحث
-search_query = st.text_input("🔍 Search for a room...")
+# اختيار الصفحة (للتنقل بين الملايين)
+page = st.number_input("رقم الصفحة (للتنقل بين الملايين)", min_value=1, value=1)
 
-# عرض الغرف
-rooms = get_rooms_from_db(search_query)
+rooms = get_rooms(page)
 cols = st.columns(4)
 
 for i, room in enumerate(rooms):
@@ -40,5 +39,4 @@ for i, room in enumerate(rooms):
             <h3>{room['name']} 👑</h3>
         </div>
         """, unsafe_allow_html=True)
-        # هذا السطر هو الذي كان يسبب الخطأ، تم تصحيحه هنا:
-        st.button("Enter", key=f"btn_{room['id']}")
+        st.button("دخول", key=f"btn_{room['id']}")
