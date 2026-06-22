@@ -2,7 +2,7 @@ import json
 import os
 
 class ShahryarEconomy:
-    def _init_(self):
+    def _init(self):  # <--- لاحظ الشرطتين _
         self.ADMIN_SHARE = 0.60
         self.AGENT_SHARE = 0.10
         self.HOST_SHARE = 0.30
@@ -18,12 +18,11 @@ class ShahryarEconomy:
         }
 
 class ShahryarCore:
-    def _init_(self, db_file="shahryar_data.json"):
+    def _init(self, db_file="shahryar_data.json"): # <--- لاحظ الشرطتين _
         self.db_file = db_file
         self.economy = ShahryarEconomy()
         self._init_db()
         
-        # قائمة الغرف الأصلية - يمكنك إضافة أي غرفة هنا مستقبلاً
         self.rooms = {
             "gaming": {"name": "غرفة الألعاب"},
             "music": {"name": "غرفة الموسيقى"},
@@ -44,5 +43,5 @@ class ShahryarCore:
             return self.economy.calculate_distribution(amount)
         return None
 
-# إنشاء كائن موحد للنظام
-shahryar_system = ShahryarCore()i
+# هذا هو الكائن الموحد للنظام
+shahryar_system = ShahryarCore()
