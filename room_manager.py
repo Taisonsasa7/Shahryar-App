@@ -80,3 +80,32 @@ class LionFireEvent:
     def trigger_entrance(self, user_id, room_id):
         event_data = {"type": "LEGENDARY_ENTRY", "user_id": user_id}
         print(f"تم تفعيل عرض الأسد الناري للمستخدم {user_id}")
+from datetime import datetime
+
+def issue_ai_receipt(self, user_id, gift_details):
+    # 1. تحديد مستوى الداعم
+    value = gift_details['value']
+    if value > 1000:
+        tier = "👑 ملكي (ذهبي)"
+        decoration = "✧✦✧✦✧ 𝕽𝖔𝖞𝖆𝖑 𝕲𝖔𝖑𝖉 ✧✦✧✦✧"
+    elif value > 500:
+        tier = "✨ أميري (فضي)"
+        decoration = "─── ⋆⋅☆⋅⋆ ───"
+    else:
+        tier = "Guest"
+        decoration = "---"
+
+    # 2. الحصول على التاريخ والوقت الحالي
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # 3. صياغة الشيك المزخرف
+    receipt = f"""
+    {decoration}
+    🧾 *شيك ضيافة شهريار - فئة {tier}* 🧾
+    التاريخ: {timestamp}
+    المستخدم: {user_id}
+    الهدية: {gift_details['name']}
+    القيمة: {gift_details['value']} ر.س
+    {decoration}
+    "يا مرحب بـ {user_id}، كرمك لا يقدر بثمن!"
+    """
