@@ -1,38 +1,30 @@
 import streamlit as st
 
-# تعريف الكلاس داخل نفس الملف لضمان عدم وجود خطأ استيراد
+# النظام كامل داخل هذا الكلاس في ملف واحد
 class ShahryarCore:
     def _init_(self):
-        self.rooms = [
-            {"id": "gaming", "name": "غرفة الألعاب"},
-            {"id": "music", "name": "غرفة الموسيقى"}
-        ]
+        self.rooms = ["غرفة الألعاب", "غرفة الموسيقى"]
     
-    def get_all_rooms(self):
+    def get_rooms(self):
         return self.rooms
 
-    def trigger_event(self, amount):
-        return {
-            "المبلغ": amount,
-            "حصة الإدارة": amount * 0.6,
-            "حصة المضيف": amount * 0.4
-        }
+    def calculate(self, amount):
+        # حساب الأرباح (60% للإدارة، 40% للمضيف)
+        return amount * 0.6, amount * 0.4
 
-# إنشاء الكائن
+# إنشاء كائن النظام
 system = ShahryarCore()
 
-# واجهة المستخدم
+# واجهة التطبيق
 st.title("🌙 شهريار")
-st.subheader("الغرف المتاحة:")
-
-# عرض الغرف
-for room in system.get_all_rooms():
-    st.write(f"✅ {room['name']}")
+st.write("### الغرف المتاحة:")
+for room in system.get_rooms():
+    st.write(f"✅ {room}")
 
 st.divider()
 
-# حساب الأرباح
-amount = st.number_input("أدخل المبلغ بالدولار", min_value=0.0)
-if st.button("حساب التوزيع"):
-    result = system.trigger_event(amount)
-    st.json(result)
+val = st.number_input("أدخل المبلغ بالدولار:", min_value=0.0)
+if st.button("حساب الأرباح"):
+    admin, host = system.calculate(val)
+    st.write(f"حصة الإدارة: {admin} دولار")
+    st.write(f"حصة المضيف: {host} دولار")
