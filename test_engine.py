@@ -38,3 +38,13 @@ class ThroneEngine:
 
     def return_to_chair(self):
         print("العودة إلى داخل الخشب بسلام.")
+# --- كود الاختبار (أضفه في نهاية الملف) ---
+if _name_ == "_main_":
+    # محاكاة لكرسي برقم 01
+    throne = ThroneEngine(chair_id="throne_01")
+    
+    print("--- بدء محاكاة حركة العرش ---")
+    throne.run_behavior() # تجربة الحركة الطبيعية
+    
+    print("\n--- محاكاة وصول هدية ---")
+    throne.trigger_gift_sequence(receiver_name="المستخدم_شهريار")
