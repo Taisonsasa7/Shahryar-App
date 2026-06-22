@@ -1,23 +1,44 @@
 import streamlit as st
-# ستحتاج هنا لربط قاعدة البيانات
-# from database import get_rooms_from_db 
+
+# إعدادات التصميم
+st.set_page_config(page_title="منصة شهريار", layout="wide")
+st.markdown("""
+    <style>
+    .stApp { background-color: #0d0d0d; color: #ffffff; }
+    .room-card { 
+        background-color: #1a1a1a; 
+        border: 2px solid #FFD700; 
+        padding: 20px; 
+        border-radius: 15px; 
+        margin: 10px; 
+        text-align: center; 
+    }
+    h3 { color: #FFD700; }
+    </style>
+    """, unsafe_allow_html=True)
 
 st.title("🌙 منصة شهريار العالمية")
 
-# شريط بحث ذكي للوصول لأي غرفة من آلاف الغرف
-search_query = st.text_input("🔍 ابحث عن غرفتك (مثلاً: العاب، بث مباشر)...")
+# دالة محلية لجلب الغرف (تم تعريفها هنا مباشرة لمنع ظهور الخطأ)
+def get_rooms_from_db(search_query):
+    # محاكاة لآلاف الغرف
+    all_rooms = [{"id": i, "name": f"غرفة رقم {i}"} for i in range(1, 5001)]
+    if search_query:
+        return [r for r in all_rooms if search_query.lower() in r['name'].lower()]
+    return all_rooms[:50] # يعرض أول 50 غرفة فقط للتسريع
 
-# نظام عرض الغرف الديناميكي (يستبدل الكتابة اليدوية)
-def display_rooms():
-    # هنا يتم استدعاء الغرف من قاعدة البيانات بناءً على البحث
-    rooms = get_rooms_from_db(search_query) 
-    
-    # عرض الغرف في صفوف (Grid)
-    cols = st.columns(3) # عرض 3 غرف في الصف الواحد
-    for i, room in enumerate(rooms):
-        with cols[i % 3]:
-            st.markdown(f"### {room['title']}")
-            if st.button(f"دخول {room['id']}"):
-                st.write(f"جارٍ الاتصال بالغرفة {room['id']}...")
+# نظام البحث
+search_query = st.text_input("🔍 ابحث عن غرفة...")
 
-display_rooms()
+# عرض الغرف
+rooms = get_rooms_from_db(search_query)
+
+cols = st.columns(4)
+for i, room in enumerate(rooms):
+    with cols[i % 4]:
+        st.markdown(f"""
+        <div class="room-card">
+            <h3>{room['name']}</h3>
+        </div>
+        """, unsafe_allow_html=True)
+        st.button(f"دخول", key=f"btn_{room['id']}"
