@@ -36,4 +36,4 @@ for i, room in enumerate(rooms):
             <h3>{room['name']} 👑</h3>
         </div>
         """, unsafe_allow_html=True)
-        st.button("Enter", key=f"btn_{room['id']}")
+        st.button("Enter", key=f"btn_{room['id']}"
