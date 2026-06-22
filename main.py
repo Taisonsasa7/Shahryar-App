@@ -1,5 +1,6 @@
-import streamlit as st
+mport streamlit as st
 
+# إعدادات التصميم
 st.set_page_config(page_title="منصة شهريار", layout="wide")
 st.markdown("""
     <style>
@@ -18,17 +19,20 @@ st.markdown("""
 
 st.title("🌙 منصة شهريار العالمية")
 
+# دالة لجلب الغرف
 def get_rooms_from_db(search_query):
-    # نحدد مليون غرفة هنا
     all_rooms = [{"id": i, "name": f"Room {i}"} for i in range(1, 1000001)]
     if search_query:
         return [r for r in all_rooms if search_query.lower() in r['name'].lower()]
     return all_rooms[:20]
 
+# نظام البحث
 search_query = st.text_input("🔍 Search for a room...")
-rooms = get_rooms_from_db(search_query)
 
+# عرض الغرف
+rooms = get_rooms_from_db(search_query)
 cols = st.columns(4)
+
 for i, room in enumerate(rooms):
     with cols[i % 4]:
         st.markdown(f"""
@@ -36,4 +40,5 @@ for i, room in enumerate(rooms):
             <h3>{room['name']} 👑</h3>
         </div>
         """, unsafe_allow_html=True)
-        st.button("Enter", key=f"btn_{room['id']}"
+        # هذا السطر هو الذي كان يسبب الخطأ، تم تصحيحه هنا:
+        st.button("Enter", key=f"btn_{room['id']}")
