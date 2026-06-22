@@ -1,19 +1,19 @@
 import streamlit as st
 
-# النظام كامل داخل هذا الكلاس في ملف واحد
-class ShahryarCore:
+# قمنا بتغيير اسم الكلاس ليضطر النظام لإعادة القراءة
+class ShahryarNewSystem:
     def _init_(self):
-        self.rooms = ["غرفة الألعاب", "غرفة الموسيقى"]
+        # تعريف الغرف هنا بشكل صريح
+        self.rooms_list = ["غرفة الألعاب", "غرفة الموسيقى"]
     
     def get_rooms(self):
-        return self.rooms
+        return self.rooms_list
 
     def calculate(self, amount):
-        # حساب الأرباح (60% للإدارة، 40% للمضيف)
         return amount * 0.6, amount * 0.4
 
-# إنشاء كائن النظام
-system = ShahryarCore()
+# إنشاء كائن النظام الجديد
+system = ShahryarNewSystem()
 
 # واجهة التطبيق
 st.title("🌙 شهريار")
