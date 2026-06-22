@@ -67,3 +67,18 @@ class ShahryarEconomy:
 
 # إنشاء كائن المحرك الاقتصادي لاستخدامه في كامل المشروع
 economy_engine = ShahryarEconomy(
+# كود الدمج المركزي الموحد (Shahryar Core - Throne Logic)
+class ShahryarCore:
+    def _init_(self):
+        # هنا يتم استيراد كل المحركات الفرعية
+        self.economy = ShahryarEconomyCore()
+        # self.throne = ThroneEngine() # سيتم دمجه هنا لاحقاً
+
+    # دالة موحدة لتشغيل أي حدث في الغرفة
+    def trigger_event(self, event_type, data):
+        if event_type == "GIFT_RECEIVED":
+            # 1. حساب مالي (اقتصادي)
+            financials = self.economy.process_transaction(data['amount'])
+            # 2. تفعيل بصري (عرش)
+            # self.throne.trigger_gift_sequence(data['receiver'])
+            return financials
