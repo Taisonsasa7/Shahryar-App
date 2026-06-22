@@ -114,3 +114,4 @@ def issue_ai_receipt(self, user_id, gift_details):
     {decoration}
     "يا مرحب بـ {user_id}، كرمك لا يقدر بثمن!"
     """
+from database_manager import calculate_and_update
