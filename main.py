@@ -1,27 +1,33 @@
-import streamlit as st
-from shahryar_core import shahryar_system
+import json
+import os
 
-st.set_page_config(page_title="شهريار", layout="wide")
-st.title("🌙 شهريار")
+class ShahryarEconomy:
+    def _init_(self):
+        self.EXCHANGE_RATE = 10000
 
-# جلب الغرف من المحرك الموحد
-rooms = shahryar_system.get_all_rooms()
+    def calculate_distribution(self, amount):
+        return {
+            "total_diamonds": amount * self.EXCHANGE_RATE,
+            "admin": (amount * self.EXCHANGE_RATE) * 0.60,
+            "host": (amount * self.EXCHANGE_RATE) * 0.30
+        }
 
-# عرض الغرف بشكل شبكي
-cols = st.columns(len(rooms))
-for i, room in enumerate(rooms):
-    with cols[i]:
-        # عرض صورة الغرفة (تأكد من وجود مجلد باسم images)
-        st.image(f"images/{room['id']}.jpg", use_container_width=True)
-        
-        # زر الدخول
-        if st.button(f"دخول {room['name']}", key=room['id']):
-            st.success(f"أنت الآن في {room['name']}")
+class ShahryarCore:
+    def _init_(self):
+        self.economy = ShahryarEconomy()
+        self.rooms = {
+            "gaming": "غرفة الألعاب",
+            "music": "غرفة الموسيقى",
+            "iran_scandal": "فضيحة إيران",
+            "throne": "مجلس العرش"
+        }
 
-# إدارة الأرباح
-with st.sidebar:
-    st.header("إدارة الأرباح")
-    amount = st.number_input("أدخل المبلغ بالدولار", min_value=0.0)
-    if st.button("حساب التوزيع"):
-        result = shahryar_system.trigger_event("GIFT_RECEIVED", amount)
-        st.json(result)
+    def get_all_rooms(self):
+        # يرجع قائمة الغرف مباشرة
+        return [{"id": k, "name": v} for k, v in self.rooms.items()]
+
+    def trigger_event(self, amount):
+        return self.economy.calculate_distribution(amount)
+
+# إنشاء الكائن الموحد
+shahryar_system = ShahryarCore()
