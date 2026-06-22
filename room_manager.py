@@ -1,7 +1,12 @@
 import json
 import os
 import random
+from datetime import datetime
 from assets_manager import AssetsManager
+
+# هنا يبدأ باقي الكود الخاص بك...
+class RoomManager:
+    # ...
 
 # 1. نظام إدارة الغرفة العام
 class RoomManager:
