@@ -42,3 +42,28 @@ class ShahryarCore:
 
 # إنشاء المحرك ليكون متاحاً للمشروع كله
 core = ShahryarCore()
+class ShahryarEconomy:
+    def _init_(self):
+        # النسب الثابتة (منع التكرار في أكثر من ملف)
+        self.ADMIN_SHARE = 0.60
+        self.AGENT_SHARE = 0.10
+        self.HOST_SHARE = 0.30
+        self.EXCHANGE_RATE = 10000 # 1 USD = 10,000 Diamonds
+
+    def calculate_distribution(self, usd_amount):
+        """
+        دالة موحدة لحساب توزيع الأرباح. 
+        تُستخدم في السيرفر وفي التطبيق لضمان دقة النتائج.
+        """
+        total_diamonds = usd_amount * self.EXCHANGE_RATE
+        
+        return {
+            "total_diamonds": total_diamonds,
+            "admin": total_diamonds * self.ADMIN_SHARE,
+            "agent": total_diamonds * self.AGENT_SHARE,
+            "host": total_diamonds * self.HOST_SHARE,
+            "status": "Finalized - Non-Refundable"
+        }
+
+# إنشاء كائن المحرك الاقتصادي لاستخدامه في كامل المشروع
+economy_engine = ShahryarEconomy(
