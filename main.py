@@ -19,32 +19,34 @@ st.markdown("""
 
 st.title("🌙 منصة شهريار العالمية")
 
-# دالة محلية لجلب الغرف (تم تعريفها هنا مباشرة لمنع ظهور الخطأ)
+# دالة محلية لجلب الغرف
 def get_rooms_from_db(search_query):
-    # محاكاة لآلاف الغرف
     all_rooms = [{"id": i, "name": f"غرفة رقم {i}"} for i in range(1, 5001)]
-    if search_query:
-        return [r for r in all_rooms if search_query.lower() in r['name'].lower()]
-    return all_rooms[:50] # يعرض أول 50 غرفة فقط للتسريع
+    return all_rooms[:20]
 
-# نظام البحث
+# --- دوال الصلاحيات (الجزء المظلل بالأزرق الذي طلبته) ---
+def get_user_privilege(db, room_id, user_id):
+    return "admin" # مؤقتاً حتى نربط القاعدة
+
+def get_role_badge(role):
+    badges = {"admin": "👑", "user": "👤"}
+    return badges.get(role, "👤")
+# -----------------------------------------------------
+
 search_query = st.text_input("🔍 ابحث عن غرفة...")
-
-# عرض الغرف
 rooms = get_rooms_from_db(search_query)
 
 cols = st.columns(4)
 for i, room in enumerate(rooms):
     with cols[i % 4]:
- # --- تعديل لعرض الشارة ---
-        user_role = get_user_privilege(db, room['id'], current_user_id) # استدعاء الصلاحية
-        badge = get_role_badge(user_role) # الحصول على الرمز
+        # استدعاء الجزء المظلل بالأزرق
+        user_role = get_user_privilege(None, room['id'], "current_user") 
+        badge = get_role_badge(user_role)
         
+        # عرض الغرفة مع الشارة
         st.markdown(f"""
         <div class="room-card">
             <h3>{room['name']} {badge}</h3>
         </div>
-        """, unsafe_allow_html=True)
-        # ------------------------  
         """, unsafe_allow_html=True)
         st.button(f"دخول", key=f"btn_{room['id']}")
