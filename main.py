@@ -1,30 +1,25 @@
 import streamlit as st
 
-# قمنا بتغيير اسم الكلاس ليضطر النظام لإعادة القراءة
-class ShahryarNewSystem:
-    def _init_(self):
-        # تعريف الغرف هنا بشكل صريح
-        self.rooms_list = ["غرفة الألعاب", "غرفة الموسيقى"]
-    
-    def get_rooms(self):
-        return self.rooms_list
+# سنستخدم دوال عادية بدلاً من الكلاس لتجنب مشاكل الذاكرة
+def get_rooms():
+    return ["غرفة الألعاب", "غرفة الموسيقى"]
 
-    def calculate(self, amount):
-        return amount * 0.6, amount * 0.4
-
-# إنشاء كائن النظام الجديد
-system = ShahryarNewSystem()
+def calculate_shares(amount):
+    return amount * 0.6, amount * 0.4
 
 # واجهة التطبيق
 st.title("🌙 شهريار")
-st.write("### الغرف المتاحة:")
-for room in system.get_rooms():
+st.subheader("الغرف المتاحة:")
+
+# عرض الغرف مباشرة
+rooms = get_rooms()
+for room in rooms:
     st.write(f"✅ {room}")
 
 st.divider()
 
 val = st.number_input("أدخل المبلغ بالدولار:", min_value=0.0)
 if st.button("حساب الأرباح"):
-    admin, host = system.calculate(val)
+    admin, host = calculate_shares(val)
     st.write(f"حصة الإدارة: {admin} دولار")
     st.write(f"حصة المضيف: {host} دولار")
