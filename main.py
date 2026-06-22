@@ -1,8 +1,9 @@
 import streamlit as st
 
-# --- تعريف النظام داخل نفس الملف ---
+# تعريف النظام داخل نفس الملف لضمان عمله
 class ShahryarCore:
     def _init_(self):
+        # تعريف الغرف هنا بوضوح
         self.rooms = [
             {"id": "gaming", "name": "غرفة الألعاب"},
             {"id": "music", "name": "غرفة الموسيقى"}
@@ -12,30 +13,26 @@ class ShahryarCore:
         return self.rooms
 
     def trigger_event(self, amount):
+        # حساب بسيط للأرباح
         return {
-            "المبلغ الإجمالي": amount,
-            "حصة الإدارة (60%)": amount * 0.6,
-            "حصة المضيف (40%)": amount * 0.4
+            "المبلغ": amount,
+            "حصة الإدارة": amount * 0.6,
+            "حصة المضيف": amount * 0.4
         }
 
 # إنشاء كائن النظام
 system = ShahryarCore()
 
-# --- واجهة التطبيق ---
+# واجهة التطبيق
 st.title("🌙 شهريار")
 
-# عرض الغرف
 st.subheader("الغرف المتاحة:")
 for room in system.get_all_rooms():
     st.write(f"✅ {room['name']}")
 
 st.divider()
 
-# حساب الأرباح
-st.subheader("حساب الأرباح")
-amount = st.number_input("أدخل المبلغ بالدولار", min_value=0.0, step=1.0)
-
+amount = st.number_input("أدخل المبلغ بالدولار", min_value=0.0)
 if st.button("حساب التوزيع"):
     result = system.trigger_event(amount)
-    st.success("تم الحساب بنجاح:")
     st.json(result)
