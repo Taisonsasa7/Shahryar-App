@@ -1,4 +1,4 @@
- import streamlit as st
+import streamlit as st
 
 st.set_page_config(page_title="منصة شهريار", layout="wide")
 
@@ -34,4 +34,3 @@ for i, room in enumerate(rooms):
         st.subheader(room["name"])
         st.button("Enter", key=f"btn_{room['id']}")
         st.markdown('</div>', unsafe_allow_html=True)
-
