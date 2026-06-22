@@ -36,9 +36,15 @@ rooms = get_rooms_from_db(search_query)
 cols = st.columns(4)
 for i, room in enumerate(rooms):
     with cols[i % 4]:
+ # --- تعديل لعرض الشارة ---
+        user_role = get_user_privilege(db, room['id'], current_user_id) # استدعاء الصلاحية
+        badge = get_role_badge(user_role) # الحصول على الرمز
+        
         st.markdown(f"""
         <div class="room-card">
-            <h3>{room['name']}</h3>
+            <h3>{room['name']} {badge}</h3>
         </div>
+        """, unsafe_allow_html=True)
+        # ------------------------  
         """, unsafe_allow_html=True)
         st.button(f"دخول", key=f"btn_{room['id']}")
