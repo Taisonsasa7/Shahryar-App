@@ -1,6 +1,5 @@
 import streamlit as st
 
-# إعدادات التصميم
 st.set_page_config(page_title="منصة شهريار", layout="wide")
 st.markdown("""
     <style>
@@ -19,40 +18,22 @@ st.markdown("""
 
 st.title("🌙 منصة شهريار العالمية")
 
-# دالة محلية لجلب الغرف
 def get_rooms_from_db(search_query):
-
-def get_rooms_from_db(search_query, page=1):
-    # هنا ستقوم قاعدة البيانات بجلب 20 غرفة فقط في كل مرة (صفحة)
-    # هذا يسمى Pagi# هذا السطر يولد مليون غرفة (يمكنك زيادة الأصفار كما تشاء) بدون نصوص عربية تسبب أخطاء
-all_rooms = [{"id": i, "name": f"غرفة رقم {i}"} for i in range(1, 1000001)]nation، وهو السر الذي يجعل التطبيق لا ينهار مهما كان عدد الغرف
-    rooms = database.query(f"SELECT * FROM rooms LIMIT 20 OFFSET {(page-1)*20}")
-    return rooms
+    # نحدد مليون غرفة هنا
+    all_rooms = [{"id": i, "name": f"Room {i}"} for i in range(1, 1000001)]
+    if search_query:
+        return [r for r in all_rooms if search_query.lower() in r['name'].lower()]
     return all_rooms[:20]
 
-# --- دوال الصلاحيات (الجزء المظلل بالأزرق الذي طلبته) ---
-def get_user_privilege(db, room_id, user_id):
-    return "admin" # مؤقتاً حتى نربط القاعدة
-
-def get_role_badge(role):
-    badges = {"admin": "👑", "user": "👤"}
-    return badges.get(role, "👤")
-# -----------------------------------------------------
-
-search_query = st.text_input("🔍 ابحث عن غرفة...")
+search_query = st.text_input("🔍 Search for a room...")
 rooms = get_rooms_from_db(search_query)
 
 cols = st.columns(4)
 for i, room in enumerate(rooms):
     with cols[i % 4]:
-        # استدعاء الجزء المظلل بالأزرق
-        user_role = get_user_privilege(None, room['id'], "current_user") 
-        badge = get_role_badge(user_role)
-        
-        # عرض الغرفة مع الشارة
         st.markdown(f"""
         <div class="room-card">
-            <h3>{room['name']} {badge}</h3>
+            <h3>{room['name']} 👑</h3>
         </div>
         """, unsafe_allow_html=True)
-        st.button(f"دخول", key=f"btn_{room['id']}
+        st.button("Enter", key=f"btn_{room['id']}")
