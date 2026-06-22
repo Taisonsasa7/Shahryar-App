@@ -4,3 +4,16 @@
     "fairy_piano": {"name": "سيمفونية الجنيات", "price": 12000, "url": "https://link2.com"}
     // ... ضع هنا الـ 300 رابط بالكامل
   }
+from assets_manager import AssetsManager
+
+# 1. تهيئة النظام
+manager = AssetsManager()
+
+# 2. تجربة جلب هدية (استبدل 'lion_fire_entry' بأي مفتاح موجود عندك في ملف JSON)
+gift = manager.get_asset('lion_fire_entry')
+
+if gift:
+    print(f"تم العثور على: {gift['name']}")
+    print(f"السعر: {gift['price']}")
+else:
+    print("لم يتم العثور على الهدية، تأكد من اسم المفتاح في ملف JSON.")
