@@ -20,5 +20,3 @@ class DataStore:
         with open(self.filename, 'r') as f:
             return json.load(f)
 
-# تهيئة قاعدة البيانات
-db = DataStore()
