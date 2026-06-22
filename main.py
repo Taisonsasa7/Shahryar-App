@@ -11,17 +11,17 @@ rooms = shahryar_system.get_all_rooms()
 cols = st.columns(len(rooms))
 for i, room in enumerate(rooms):
     with cols[i]:
-        # عرض صورة الغرفة (تأكد من وجود الصور في مجلد باسم images)
+        # عرض صورة الغرفة (تأكد من وجود مجلد باسم images)
         st.image(f"images/{room['id']}.jpg", use_container_width=True)
         
         # زر الدخول
         if st.button(f"دخول {room['name']}", key=room['id']):
             st.success(f"أنت الآن في {room['name']}")
 
-# تجربة دالة الحساب المالية (اختياري)
+# إدارة الأرباح
 with st.sidebar:
     st.header("إدارة الأرباح")
     amount = st.number_input("أدخل المبلغ بالدولار", min_value=0.0)
     if st.button("حساب التوزيع"):
         result = shahryar_system.trigger_event("GIFT_RECEIVED", amount)
-      st.json(result)
+        st.json(result
