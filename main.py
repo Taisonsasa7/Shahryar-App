@@ -1,46 +1,41 @@
 import streamlit as st
 
+# إعداد الصفحة لتكون واسعة وبخلفية داكنة
 st.set_page_config(page_title="منصة شهريار", layout="wide")
 
-# تهيئة بيانات الغرفة
-if 'room_mode' not in st.session_state:
-    st.session_state.room_mode = "🎙️ غرفة صوتية"
-if 'mics' not in st.session_state:
-    st.session_state.mics = {i: {"user": None, "cam_on": False} for i in range(25)}
+st.markdown("""
+    <style>
+    .stApp { background-color: #0e0e10; color: white; }
+    .room-card {
+        background: linear-gradient(145deg, #1c1c21, #121215);
+        border-radius: 20px;
+        padding: 20px;
+        margin: 10px;
+        border: 1px solid #333;
+        text-align: center;
+        transition: 0.3s;
+    }
+    .room-card:hover { border: 1px solid #ff4b4b; }
+    .live-badge { background-color: #ff4b4b; color: white; padding: 2px 8px; border-radius: 5px; font-size: 12px; }
+    </style>
+    """, unsafe_allow_html=True)
 
-st.title("🌙 منصة شهريار العالمية")
+st.title("🌙 منصة شهريار")
 
-# قائمة اختيار نوع الغرفة
-mode = st.sidebar.selectbox("اختر نوع الغرفة:", ["🎙️ غرفة صوتية", "📺 بث مباشر", "🎮 غرف ألعاب"])
-st.session_state.room_mode = mode
+# إنشاء بطاقات البث
+cols = st.columns(3)
+rooms = [("Alex", "Gaming Session", "234"), ("Sofia", "Music Live", "567"), ("Luna", "Dance Challenge", "890")]
 
-st.header(f"الوضع الحالي: {st.session_state.room_mode}")
-
-# 1. حالة الغرفة الصوتية
-if st.session_state.room_mode == "🎙️ غرفة صوتية":
-    cols = st.columns(5)
-    for i in range(25):
-        with cols[i % 5]:
-            mic = st.session_state.mics[i]
-            if mic["user"] is None:
-                if st.button(f"🎤 {i+1} (متاح)", key=f"join_{i}"):
-                    st.session_state.mics[i]["user"] = "عضو"
-                    st.rerun()
-            else:
-                st.success(f"🎙️ {mic['user']}")
-                if st.button("إنزال المايك", key=f"kick_{i}"):
-                    st.session_state.mics[i] = {"user": None, "cam_on": False}
-                    st.rerun()
-
-# 2. حالة البث المباشر
-elif st.session_state.room_mode == "📺 بث مباشر":
-    st.write("📺 شاشة البث المباشر ستظهر هنا...")
-    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-
-# 3. حالة غرف الألعاب
-elif st.session_state.room_mode == "🎮 غرف ألعاب":
-    st.write("🎮 منطقة الألعاب: قائمة الألعاب المتاحة:")
-    games = ["لعبة الدومينو", "لعبة الطاولة", "لعبة الورق"]
-    for game in games:
-        if st.button(f"بدء {game}"):
-            st.write(f"جاري تشغيل {game}...")
+for i, (name, title, viewers) in enumerate(rooms):
+    with cols[i % 3]:
+        st.markdown(f"""
+        <div class="room-card">
+            <span class="live-badge">LIVE</span>
+            <h3>{name}</h3>
+            <p>{title}</p>
+            <p>👁️ {viewers} مشاهدة</p>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button(f"دخول {name}", key=f"btn_{i}"):
+            st.session_state.current_room = name
+            st.rerun()
