@@ -26,18 +26,17 @@ def show_main_page():
     
     cols = st.columns(3)
     for i, room in enumerate(sorted_rooms):
-        with cols[i % 3]:
-            st.markdown(f"""
 st.markdown(f"""
-            <div style="border: 2px solid #FFD700; padding: 20px; border-radius: 15px; text-align: center;">
-                <h3>{room['room_name']}</h3>
-                <p>المشاهدون: {room['viewers']} | الألماس: {room['diamonds']}</p>
-            </div>
-        """, unsafe_allow_html=True)
+<div style="border: 2px solid #FFD700; padding: 20px; border-radius: 15px; text-align: center;">
+    <h3>{room['room_name']}</h3>
+    <p>المشاهدون: {room['viewers']} | الألماس: {room['diamonds']}</p>
+</div>
+""", unsafe_allow_html=True)
 
         if st.button(f"دخول {room['room_name']}", key=f"btn_{i}"):
             st.session_state.current_room = room['room_name']
-            st.rerun()                <div style="border: 2px solid #FFD700; padding: 20px; border-radius: 15px; text-align: center;">
+            st.rerun()        with cols[i % 3]:
+            st.markdown(f"""
 
 # 3. واجهة داخل الغرفة (بالتصميم الذي بنيناه)
 def show_room_interface():
