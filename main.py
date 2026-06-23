@@ -17,39 +17,42 @@ if 'rooms' not in st.session_state:
     st.session_state.rooms = response.data
 
 # 2. الواجهة الرئيسية (قائمة الغرف مرتبة حسب النشاط)
+# 2. الواجهة الرئيسية (قائمة الغرف مرتبة حسب النشاط)
 def show_main_page():
-    st.title("🌙 منصة شهريار العالمية")
-    st.subheader("الغرف الأكثر نشاطاً")
+    st.title("منصة شهريار العالمية 🌙")
+    st.subheader("الغرف الأكثر نشاطاً🔥")
     
     # ترتيب الغرف تلقائياً (النشاط = مشاهدات + ماسات)
     sorted_rooms = sorted(st.session_state.rooms, key=lambda x: (x['viewers'] + x['diamonds']), reverse=True)
-    
+
     cols = st.columns(3)
     for i, room in enumerate(sorted_rooms):
-st.markdown(f"""
+        with cols[i % 3]:
+            # عرض بطاقة الغرفة
+            st.markdown(f"""
 <div style="border: 2px solid #FFD700; padding: 20px; border-radius: 15px; text-align: center;">
     <h3>{room['room_name']}</h3>
     <p>المشاهدون: {room['viewers']} | الألماس: {room['diamonds']}</p>
 </div>
 """, unsafe_allow_html=True)
 
-        if st.button(f"دخول {room['room_name']}", key=f"btn_{i}"):
-            st.session_state.current_room = room['room_name']
-            st.rerun()        with cols[i % 3]:
-            st.markdown(f"""
+            # زر الدخول للغرفة
+            if st.button(f"دخول {room['room_name']}", key=f"btn_{i}"):
+                st.session_state.current_room = room['room_name']
+                st.rerun()
 
-# 3. واجهة داخل الغرفة (بالتصميم الذي بنيناه)
+# 3. واجهة داخل الغرفة
 def show_room_interface():
-    st.sidebar.button("⬅️ عودة للرئيسية", on_click=lambda: st.session_state.pop('current_room'))
+    st.sidebar.button("⬅️ العودة للرئيسية", on_click=lambda: st.session_state.pop('current_room'))
     st.title(f"🏠 {st.session_state.current_room}")
-    
-    # المايكات والألقاب (👑 المالك، 🛡️ الأدمن)
+
+    # الملكية والألقاب
     st.subheader("🎤 منصة المتحدثين")
     cols = st.columns(5)
     for i in range(10):
         with cols[i % 5]:
-            badge = "👑" if i == 0 else "🛡️" if i == 1 else "👤"
-            st.markdown(f"{badge} *مايك {i+1}*")
+            badge = "👑" if i == 0 else "🥈" if i == 1 else "👤"
+            st.markdown(f"{badge} متحدث {i+1}")
             st.button("🚫", key=f"mic_{i}")
 
 # منطق التنقل
