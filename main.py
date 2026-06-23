@@ -1,45 +1,38 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
-# تهيئة الغرفة
-if 'room_type' not in st.session_state:
-    st.session_state.room_type = "🎙️ غرفة صوتية" # الوضع الافتراضي
+st.title("🎙️ غرفة شهريار (صوت وصورة)")
+
+# تهيئة المايكات مع حالة الكاميرا
 if 'mics' not in st.session_state:
-    st.session_state.mics = [None] * 25
+    st.session_state.mics = {i: {"user": None, "cam_on": False} for i in range(25)}
 
-st.title("🌙 منصة شهريار العالمية")
+st.subheader("🎤 منصة المتحدثين (صوت + فيديو)")
+cols = st.columns(5)
 
-# 1. لوحة المالك (تغيير نوع الغرفة)
-with st.sidebar:
-    st.header("⚙️ لوحة تحكم المالك")
-    new_type = st.radio("اختر وضع الغرفة:", ["🎙️ غرفة صوتية", "📺 بث مباشر", "🎮 غرف ألعاب"])
-    if st.button("تحديث وضع الغرفة"):
-        st.session_state.room_type = new_type
-        st.rerun()
-
-# 2. عرض نوع الغرفة الحالي
-st.info(f"الوضع الحالي للغرفة: *{st.session_state.room_type}*")
-
-# 3. عرض المايكات (يظهر في الغرفة الصوتية فقط)
-if st.session_state.room_type == "🎙️ غرفة صوتية":
-    st.subheader("🎤 منصة المتحدثين")
-    cols = st.columns(5)
-    for i in range(25):
-        with cols[i % 5]:
-            if st.session_state.mics[i] is None:
-                if st.button(f"🎤 {i+1}", key=f"join_{i}"):
-                    st.session_state.mics[i] = "عضو"
-                    st.rerun()
-            else:
-                st.success(f"🎙️ {st.session_state.mics[i]}")
-                if st.button("إنزال", key=f"kick_{i}"):
-                    st.session_state.mics[i] = None
-                    st.rerun()
-
-# 4. عرض محتوى البث أو الألعاب (بناءً على الاختيار)
-elif st.session_state.room_type == "📺 بث مباشر":
-    st.write("📺 جارٍ تحميل البث المباشر...")
-    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ") # رابط تجريبي
-
-elif st.session_state.room_type == "🎮 غرف ألعاب":
-    st.write("🎮 منطقة الألعاب: رابط اللعبة أو التحدي سيظهر هنا.")
-    st.button("بدء تحدي جديد")
+for i in range(25):
+    with cols[i % 5]:
+        mic = st.session_state.mics[i]
+        
+        # إذا كان المايك فارغاً
+        if mic["user"] is None:
+            if st.button(f"🎤 {i+1} (متاح)", key=f"join_{i}"):
+                st.session_state.mics[i]["user"] = "عضو"
+                st.rerun()
+        else:
+            # إذا كان المايك مشغولاً، نظهر خيار الكاميرا
+            st.success(f"🎙️ {mic['user']}")
+            
+            # زر تشغيل/إيقاف الكاميرا
+            cam_label = "📸 إيقاف الكاميرا" if mic["cam_on"] else "🎥 فتح الكاميرا"
+            if st.button(cam_label, key=f"cam_{i}"):
+                st.session_state.mics[i]["cam_on"] = not mic["cam_on"]
+                st.rerun()
+            
+            # إذا كانت الكاميرا مفتوحة، نظهر إطار الفيديو
+            if mic["cam_on"]:
+                st.warning("⚠️ إطار الكاميرا نشط (فيديو)")
+                
+            if st.button("إنزال", key=f"kick_{i}"):
+                st.session_state.mics[i] = {"user": None, "cam_on": False}
+                st.rerun()
