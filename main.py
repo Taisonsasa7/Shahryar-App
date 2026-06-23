@@ -1,44 +1,43 @@
+
 import streamlit as st
 
-# إعداد الصفحة
-st.set_page_config(page_title="Shahryar Global", layout="wide")
-
-# 1. نظام "الاسم القابل للتعديل" والبيانات العامة
+# 1. تهيئة الذاكرة الدائمة (لضمان عدم ضياع الألوان والبيانات)
 if 'room_name' not in st.session_state: st.session_state.room_name = "🌙 منصة شهريار العالمية"
 if 'owner' not in st.session_state: st.session_state.owner = "Shahryar"
 if 'admins' not in st.session_state: st.session_state.admins = ["Admin1", "Admin2"]
 
-# 2. وظيفة التحقق (للملايين: يجب أن تربط هذا لاحقاً بقاعدة بيانات SQL)
-def is_admin(user):
-    return user == st.session_state.owner or user in st.session_state.admins
+# دالة لتحديد الألوان بناءً على الصلاحية (ثابتة لا تتغير)
+def get_user_style(username):
+    if username == st.session_state.owner: return "👑", "#FFD700"  # ذهبي
+    if username in st.session_state.admins: return "🛡️", "#00FF00"  # أخضر
+    return "👤", "#FFFFFF"  # أبيض
 
-# 3. واجهة التحكم (تظهر فقط للأدمن والمالك)
+# 2. لوحة الإدارة (Sidebar)
 with st.sidebar:
     st.header("⚙️ لوحة الإدارة العليا")
-    if is_admin("Admin1"): # هنا يوضع اسم المستخدم الفعلي الحالي
-        new_name = st.text_input("تغيير اسم الغرفة:", value=st.session_state.room_name)
-        if st.button("حفظ الاسم"):
-            st.session_state.room_name = new_name
-            st.rerun()
-        
-        st.divider()
-        st.write("أضف أدمن جديد:")
-        new_admin = st.text_input("اسم الأدمن:")
-        if st.button("إضافة أدمن"):
+    new_name = st.text_input("تغيير اسم الغرفة:", value=st.session_state.room_name)
+    if st.button("حفظ الاسم"):
+        st.session_state.room_name = new_name
+        st.rerun()
+    
+    st.divider()
+    new_admin = st.text_input("إضافة أدمن جديد:")
+    if st.button("إضافة"):
+        if new_admin not in st.session_state.admins:
             st.session_state.admins.append(new_admin)
-            st.success(f"تم إضافة {new_admin} كأدمن!")
+            st.success(f"تمت إضافة {new_admin}")
 
-# 4. العنوان الرئيسي (يتحدث فوراً)
+# 3. واجهة المنصة
 st.title(f"{st.session_state.room_name}")
+st.subheader("🎤 منصة التحدي (25 مايك)")
 
-# 5. عرض المايكات (التحديات)
-st.subheader("🎤 منصة التحدي العالمية")
+# 4. عرض المايكات
 cols = st.columns(5)
 for i in range(25):
     with cols[i % 5]:
         st.markdown(f"*مايك {i+1}*")
-        if is_admin("Admin1"):
-            if st.button("🚫 طرد", key=f"kick_{i}"): st.warning("تم الطرد!")
-            if st.button("🔇 كتم", key=f"mute_{i}"): st.warning("تم الكتم!")
-
-st.success("المنصة جاهزة للتشغيل!")
+        # زر الطرد والكتم بألوان ثابتة
+        if st.button("🚫 طرد", key=f"kick_{i}"):
+            st.warning(f"تم طرد المستخدم في مايك {i+1}")
+        if st.button("🔇 كتم", key=f"mute_{i}"):
+            st.info(f"تم كتم مايك {i+1}")
