@@ -13,7 +13,7 @@ except Exception as e:
     rooms_data = []
 
 st.title("منصة شهريار العالمية 🌙")
-response = supabase.table("roomsr").select("*").execute(
+response = supabase.table("roomsr").select("*").execute()
 if rooms_data:
     # عرض الغرف
     cols = st.columns(3)
