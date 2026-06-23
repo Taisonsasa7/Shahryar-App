@@ -13,8 +13,7 @@ except Exception as e:
     rooms_data = []
 
 st.title("منصة شهريار العالمية 🌙")
-st.subheader("الغرف المتاحة حالياً 🔥")
-
+response = supabase.table("roomsr").select("*").execute(
 if rooms_data:
     # عرض الغرف
     cols = st.columns(3)
