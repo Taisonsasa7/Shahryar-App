@@ -5,17 +5,15 @@ from supabase import create_client
 st.set_page_config(page_title="منصة شهريار العالمية", layout="wide")
 
 # الاتصال بقاعدة البيانات
-# تأكد أنك وضعت SUPABASE_URL و SUPABASE_KEY في إعدادات Secrets في Streamlit Cloud
 supabase = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
 
-# جلب البيانات من الجدول الصحيح (roomsr)
-if 'rooms' not in st.session_state:
-    try:
-        response = supabase.table("roomsr").select("*").execute()
-        st.session_state.rooms = response.data
-    except Exception as e:
-        st.error(f"خطأ في الاتصال بقاعدة البيانات: {e}")
-        st.session_state.rooms = []
+# جلب البيانات
+try:
+    response = supabase.table("roomsr").select("*").execute()
+    st.session_state.rooms = response.data
+except Exception as e:
+    st.error(f"خطأ في الاتصال: {e}")
+    st.session_state.rooms = []
 
 def show_main_page():
     st.title("منصة شهريار العالمية 🌙")
@@ -25,7 +23,7 @@ def show_main_page():
         cols = st.columns(3)
         for i, room in enumerate(st.session_state.rooms):
             with cols[i % 3]:
-                # عرض البيانات بناءً على الأعمدة الموجودة في قاعدة بياناتك (roomsr)
+                # عرض البيانات بناءً على الأعمدة الموجودة في قاعدة بياناتك
                 status = "نشطة" if room.get('is_active') else "غير نشطة"
                 st.markdown(f"""
                 <div style="border: 2px solid #FFD700; padding: 20px; border-radius: 15px; text-align: center;">
@@ -38,7 +36,7 @@ def show_main_page():
                     st.session_state.current_room = room['room_name']
                     st.rerun()
     else:
-        st.write("لا توجد غرف متاحة حالياً.")
+        st.write("لا توجد غرف متاحة حالياً في قاعدة البيانات.")
 
 # منطق التنقل
 if 'current_room' not in st.session_state:
