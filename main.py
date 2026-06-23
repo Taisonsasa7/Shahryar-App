@@ -1,48 +1,34 @@
 import streamlit as st
 
-st.set_page_config(page_title="منصة شهريار", layout="wide")
+# تعريف الأدمنية (يمكنك تعديل هذه القائمة)
+ADMINS = ["admin1", "admin2", "admin3"] 
 
-# تهيئة حالة الغرف إذا لم تكن موجودة
-if 'room_data' not in st.session_state:
-    st.session_state.room_data = {i: {"name": f"غرفة {i}", "type": "🎙️ صوتي"} for i in range(1, 100)}
+if 'mics' not in st.session_state:
+    st.session_state.mics = [None] * 25 # 25 مايك
+    st.session_state.current_user = "user1" # محاكاة للمستخدم الحالي
 
-st.markdown("""
-    <style>
-    .stApp { background-color: #0d0d0d; color: #ffffff; }
-    .room-card { background-color: #1a1a1a; border: 2px solid #FFD700; padding: 15px; border-radius: 15px; margin: 10px; text-align: center; }
-    .badge { background: #FFD700; color: black; padding: 5px; border-radius: 5px; font-weight: bold; }
-    </style>
-    """, unsafe_allow_html=True)
+st.title("🎙️ منصة شهريار المفتوحة")
 
-# دالة لوحة التحكم
-def room_admin_panel(room_id):
-    st.title(f"⚙️ لوحة تحكم {st.session_state.room_data[room_id]['name']}")
-    with st.form("edit_room"):
-        new_name = st.text_input("تغيير اسم الغرفة", st.session_state.room_data[room_id]['name'])
-        new_type = st.selectbox("تغيير نوع الغرفة", ["🎙️ صوتي", "📺 بث مباشر", "🎮 ألعاب"], 
-                                index=["🎙️ صوتي", "📺 بث مباشر", "🎮 ألعاب"].index(st.session_state.room_data[room_id]['type']))
-        
-        if st.form_submit_button("حفظ التغييرات"):
-            st.session_state.room_data[room_id]['name'] = new_name
-            st.session_state.room_data[room_id]['type'] = new_type
-            st.success("تم التحديث بنجاح!")
-            st.rerun()
-
-# المنطق الرئيسي للعرض
-if 'current_room' in st.session_state:
-    room_admin_panel(st.session_state.current_room)
-    if st.button("⬅️ العودة للرئيسية"):
-        del st.session_state.current_room
-        st.rerun()
-else:
-    st.title("🌙 منصة شهريار العالمية")
-    cols = st.columns(4)
-    for i in range(1, 13):
-        with cols[(i-1) % 4]:
-            st.markdown('<div class="room-card">', unsafe_allow_html=True)
-            st.subheader(st.session_state.room_data[i]['name'])
-            st.markdown(f'<span class="badge">{st.session_state.room_data[i]["type"]}</span>', unsafe_allow_html=True)
-            if st.button("دخول الغرفة", key=f"btn_{i}"):
-                st.session_state.current_room = i
+# منطقة المايكات (أي شخص يمكنه الضغط والصعود)
+st.subheader("🎤 منصة المايكات")
+cols = st.columns(5)
+for i in range(25):
+    with cols[i % 5]:
+        if st.session_state.mics[i] is None:
+            if st.button(f"مايك {i+1} (متاح)", key=f"join_{i}"):
+                st.session_state.mics[i] = st.session_state.current_user
                 st.rerun()
-            st.markdown('</div>', unsafe_allow_html=True)
+        else:
+            # عرض اسم الشخص الذي على المايك
+            st.success(f"🎙️ {st.session_state.mics[i]}")
+            # التحكم: يظهر فقط للأدمن أو صاحب المايك نفسه
+            if st.session_state.current_user in ADMINS or st.session_state.mics[i] == st.session_state.current_user:
+                if st.button("إنزال المايك", key=f"kick_{i}"):
+                    st.session_state.mics[i] = None
+                    st.rerun()
+
+# منطقة التحكم (للأدمنية فقط)
+if st.session_state.current_user in ADMINS:
+    with st.expander("🛡️ لوحة تحكم الأدمن"):
+        st.write("يمكنك كتم أي مايك أو طرد أي مستخدم من الغرفة.")
+        st.button("كتم الجميع")
