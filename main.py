@@ -1,62 +1,50 @@
 import streamlit as st
-import random
-
-# إعدادات الواجهة
-st.set_page_config(page_title="منصة شهريار العالمية", layout="wide")
-st.markdown("""<style>.stApp { background-color: #0e0e10; color: white; }</style>""", unsafe_allow_html=True)
-
-# 1. تهيئة الغرف (في الواقع هذا سيأتي من قاعدة بيانات)
 from supabase import create_client
 
+# إعدادات الصفحة
+st.set_page_config(page_title="منصة شهريار العالمية", layout="wide")
+
 # الاتصال بقاعدة البيانات
+# تأكد أنك وضعت SUPABASE_URL و SUPABASE_KEY في إعدادات Secrets في Streamlit Cloud
 supabase = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
 
+# جلب البيانات من الجدول الصحيح (roomsr)
 if 'rooms' not in st.session_state:
-    # جلب البيانات من جدول rooms في قاعدة بياناتك
-    response = supabase.table("rooms").select("*").execute()
-    st.session_state.rooms = response.data
+    try:
+        response = supabase.table("roomsr").select("*").execute()
+        st.session_state.rooms = response.data
+    except Exception as e:
+        st.error(f"خطأ في الاتصال بقاعدة البيانات: {e}")
+        st.session_state.rooms = []
 
-# 2. الواجهة الرئيسية (قائمة الغرف مرتبة حسب النشاط)
-# 2. الواجهة الرئيسية (قائمة الغرف مرتبة حسب النشاط)
 def show_main_page():
     st.title("منصة شهريار العالمية 🌙")
-    st.subheader("الغرف الأكثر نشاطاً🔥")
+    st.subheader("الغرف المتاحة حالياً 🔥")
     
-    # ترتيب الغرف تلقائياً (النشاط = مشاهدات + ماسات)
-    sorted_rooms = sorted(st.session_state.rooms, key=lambda x: (x['viewers'] + x['diamonds']), reverse=True)
-
-    cols = st.columns(3)
-    for i, room in enumerate(sorted_rooms):
-        with cols[i % 3]:
-            # عرض بطاقة الغرفة
-            st.markdown(f"""
-<div style="border: 2px solid #FFD700; padding: 20px; border-radius: 15px; text-align: center;">
-    <h3>{room['room_name']}</h3>
-    <p>المشاهدون: {room['viewers']} | الألماس: {room['diamonds']}</p>
-</div>
-""", unsafe_allow_html=True)
-
-            # زر الدخول للغرفة
-            if st.button(f"دخول {room['room_name']}", key=f"btn_{i}"):
-                st.session_state.current_room = room['room_name']
-                st.rerun()
-
-# 3. واجهة داخل الغرفة
-def show_room_interface():
-    st.sidebar.button("⬅️ العودة للرئيسية", on_click=lambda: st.session_state.pop('current_room'))
-    st.title(f"🏠 {st.session_state.current_room}")
-
-    # الملكية والألقاب
-    st.subheader("🎤 منصة المتحدثين")
-    cols = st.columns(5)
-    for i in range(10):
-        with cols[i % 5]:
-            badge = "👑" if i == 0 else "🥈" if i == 1 else "👤"
-            st.markdown(f"{badge} متحدث {i+1}")
-            st.button("🚫", key=f"mic_{i}")
+    if st.session_state.rooms:
+        cols = st.columns(3)
+        for i, room in enumerate(st.session_state.rooms):
+            with cols[i % 3]:
+                # عرض البيانات بناءً على الأعمدة الموجودة في قاعدة بياناتك (roomsr)
+                status = "نشطة" if room.get('is_active') else "غير نشطة"
+                st.markdown(f"""
+                <div style="border: 2px solid #FFD700; padding: 20px; border-radius: 15px; text-align: center;">
+                    <h3>{room['room_name']}</h3>
+                    <p>الحالة: {status} | الألماس: {room['diamonds']}</p>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                if st.button(f"دخول {room['room_name']}", key=f"btn_{i}"):
+                    st.session_state.current_room = room['room_name']
+                    st.rerun()
+    else:
+        st.write("لا توجد غرف متاحة حالياً.")
 
 # منطق التنقل
 if 'current_room' not in st.session_state:
     show_main_page()
 else:
-    show_room_interface()
+    st.title(f"🏠 {st.session_state.current_room}")
+    if st.button("⬅️ العودة للرئيسية"):
+        del st.session_state.current_room
+        st.rerun()
