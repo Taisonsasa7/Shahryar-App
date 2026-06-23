@@ -1,49 +1,65 @@
 import streamlit as st
+import random
 
-# إعدادات الواجهة
+# إعدادات الصفحة
 st.set_page_config(page_title="منصة شهريار", layout="wide")
 st.markdown("""<style>.stApp { background-color: #0e0e10; color: white; }</style>""", unsafe_allow_html=True)
 
-# 1. تهيئة البيانات الثابتة
+# 1. تهيئة البيانات الأساسية
 if 'room_name' not in st.session_state: st.session_state.room_name = "🌙 منصة شهريار العالمية"
-if 'admins' not in st.session_state: st.session_state.admins = ["Admin1", "Admin2"]
+if 'admins' not in st.session_state: st.session_state.admins = ["Admin1"]
 if 'mode' not in st.session_state: st.session_state.mode = "🎙️ غرفة صوتية"
+if 'diamonds' not in st.session_state: st.session_state.diamonds = 1000
+if 'ticker_message' not in st.session_state: st.session_state.ticker_message = "📢 مرحبا بكم في منصة شهريار!"
+if 'viewers' not in st.session_state: st.session_state.viewers = random.randint(500, 1000)
 
-# 2. وظيفة الهوية البصرية
-def get_user_badge(username):
-    if username == "Shahryar": return "👑", "#FFD700"
-    if username in st.session_state.admins: return "🛡️", "#00FF00"
-    return "👤", "#FFFFFF"
+# قائمة الفلترة الذكية
+bad_words = ["كلمة1", "كلمة2", "كلمة3"] 
 
-# 3. لوحة الإدارة (Sidebar)
+# 2. شريط الإعلانات العالمي (يظهر للجميع)
+st.markdown(f"""
+    <div style="background-color: #FFD700; color: black; padding: 10px; border-radius: 5px; font-weight: bold; text-align: center; margin-bottom: 20px;">
+        {st.session_state.ticker_message}
+    </div>
+""", unsafe_allow_html=True)
+
+# 3. لوحة الإدارة والإعلانات
 with st.sidebar:
     st.header("⚙️ لوحة الإدارة")
     st.session_state.room_name = st.text_input("تغيير اسم الغرفة:", value=st.session_state.room_name)
     st.session_state.mode = st.selectbox("نوع الغرفة:", ["🎙️ غرفة صوتية", "📺 بث مباشر", "🎮 غرف ألعاب"])
+    
     st.divider()
-    new_admin = st.text_input("إضافة أدمن:")
-    if st.button("حفظ الأدمن"): st.session_state.admins.append(new_admin)
+    st.header("💎 الإعلان الممول")
+    st.write(f"رصيدك: {st.session_state.diamonds} ماسة")
+    ad_text = st.text_input("اكتب إعلانك (50 حرف):", max_chars=50)
+    
+    if st.button("نشر الإعلان (500 ماسة)"):
+        if any(word in ad_text.lower() for word in bad_words):
+            st.error("الإعلان يحتوي على كلمات غير لائقة!")
+        elif st.session_state.diamonds >= 500:
+            st.session_state.diamonds -= 500
+            st.session_state.ticker_message = f"إعلان ممول: {ad_text}"
+            st.success("تم النشر!")
+            st.rerun()
+        else:
+            st.error("رصيد الماس غير كافٍ!")
 
-# 4. محتوى المنصة
-st.title(f"{st.session_state.room_name}")
+# 4. واجهة الغرفة
+st.title(f"{st.session_state.room_name} | 👁️ {st.session_state.viewers} مشاهد")
 
 if st.session_state.mode == "🎙️ غرفة صوتية":
-    st.subheader("🎤 منصة التحدي (25 مايك)")
     cols = st.columns(5)
     for i in range(25):
         with cols[i % 5]:
             st.markdown(f"مايك {i+1}")
-            # أزرار تحكم للأدمنية
-            col1, col2 = st.columns(2)
-            col1.button("🚫", key=f"k_{i}", help="طرد")
-            col2.button("🔇", key=f"m_{i}", help="كتم")
+            c1, c2 = st.columns(2)
+            c1.button("🚫", key=f"k_{i}")
+            c2.button("🔇", key=f"m_{i}")
 
 elif st.session_state.mode == "📺 بث مباشر":
-    st.subheader("📺 البث الحي")
-    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ") # هنا يوضع رابط البث
-    st.text_input("تغيير رابط يوتيوب:")
+    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
 elif st.session_state.mode == "🎮 غرف ألعاب":
-    st.subheader("🎮 منطقة التحديات")
-    st.button("تحدي الدومينو")
-    st.button("تحدي الأسئلة")
+    st.button("بدء تحدي الدومينو")
+    st.button("بدء تحدي الأسئلة")
