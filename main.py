@@ -6,12 +6,15 @@ st.set_page_config(page_title="منصة شهريار العالمية", layout="
 st.markdown("""<style>.stApp { background-color: #0e0e10; color: white; }</style>""", unsafe_allow_html=True)
 
 # 1. تهيئة الغرف (في الواقع هذا سيأتي من قاعدة بيانات)
+from supabase import create_client
+
+# الاتصال بقاعدة البيانات
+supabase = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
+
 if 'rooms' not in st.session_state:
-    st.session_state.rooms = [
-        {"name": "سهرة الملوك", "viewers": 1200, "diamonds": 5000, "type": "صوتية"},
-        {"name": "تحدي الأبطال", "viewers": 900, "diamonds": 3000, "type": "ألعاب"},
-        {"name": "بث مباشر حصري", "viewers": 500, "diamonds": 1000, "type": "بث مباشر"}
-    ]
+    # جلب البيانات من جدول rooms في قاعدة بياناتك
+    response = supabase.table("rooms").select("*").execute()
+    st.session_state.rooms = response.data
 
 # 2. الواجهة الرئيسية (قائمة الغرف مرتبة حسب النشاط)
 def show_main_page():
@@ -26,13 +29,15 @@ def show_main_page():
         with cols[i % 3]:
             st.markdown(f"""
                 <div style="border: 2px solid #FFD700; padding: 20px; border-radius: 15px; text-align: center;">
-                    <h3>{room['name']}</h3>
-                    <p>👁️ {room['viewers']} | 💎 {room['diamonds']}</p>
-                </div>
-            """, unsafe_allow_html=True)
-            if st.button(f"دخول {room['name']}", key=f"btn_{i}"):
-                st.session_state.current_room = room['name']
-                st.rerun()
+st.markdown(f"""
+            <div style="border: 2px solid #FFD700; padding: 20px; border-radius: 15px; text-align: center;">
+                <h3>{room['room_name']}</h3>
+                <p>👁️ {room['viewers']} | 💎 {room['diamonds']}</p>
+            </div>
+        """, unsafe_allow_html=True)
+        if st.button(f"دخول {room['room_name']}", key=f"btn_{i}"):
+            st.session_state.current_room = room['room_name']
+            st.rerun()
 
 # 3. واجهة داخل الغرفة (بالتصميم الذي بنيناه)
 def show_room_interface():
