@@ -1,4 +1,4 @@
-iimport streamlit as st
+import streamlit as st
 
 # إعدادات المظهر العام
 st.set_page_config(page_title="منصة شهريار", layout="wide")
