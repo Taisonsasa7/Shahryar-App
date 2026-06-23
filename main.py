@@ -1,4 +1,4 @@
-import streamlit as st
+iimport streamlit as st
 
 # إعدادات المظهر العام
 st.set_page_config(page_title="منصة شهريار", layout="wide")
@@ -48,4 +48,5 @@ elif st.session_state.room_mode == "🎮 غرف ألعاب":
 
 # لوحة تحكم المالك (مخفية في الأسفل)
 with st.expander("👑 لوحة تحكم المالك"):
+    st.write("إضافة الأدمنية وتعديل إعدادات الغرفة هنا...")
     st.write("إضافة الأدمنية وتعديل إعدادات الغرفة هنا...")
