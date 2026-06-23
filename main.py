@@ -32,8 +32,7 @@ def show_main_page():
 st.markdown(f"""
             <div style="border: 2px solid #FFD700; padding: 20px; border-radius: 15px; text-align: center;">
                 <h3>{room['room_name']}</h3>
-                <p>👁️ {room['viewers']} | 💎 {room['diamonds']}</p>
-            </div>
+               <p> المشاهدون: {room['viewers']} | الألماس: {room['diamonds']}</p>
         """, unsafe_allow_html=True)
         if st.button(f"دخول {room['room_name']}", key=f"btn_{i}"):
             st.session_state.current_room = room['room_name']
