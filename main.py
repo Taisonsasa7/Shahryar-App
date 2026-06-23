@@ -1,40 +1,46 @@
-import streamlit as st
+iimport streamlit as st
 
-st.set_page_config(page_title="غرفة شهريار", layout="wide")
+st.set_page_config(page_title="منصة شهريار", layout="wide")
 
-# 1. إعادة تهيئة البيانات بشكل آمن لمنع الأخطاء
-if 'mics' not in st.session_state or not isinstance(st.session_state.mics, dict):
+# تهيئة بيانات الغرفة
+if 'room_mode' not in st.session_state:
+    st.session_state.room_mode = "🎙️ غرفة صوتية"
+if 'mics' not in st.session_state:
     st.session_state.mics = {i: {"user": None, "cam_on": False} for i in range(25)}
 
-st.title("🎙️ غرفة شهريار (صوت وصورة)")
+st.title("🌙 منصة شهريار العالمية")
 
-# 2. منطقة عرض المايكات
-st.subheader("🎤 منصة المتحدثين")
-cols = st.columns(5)
+# قائمة اختيار نوع الغرفة
+mode = st.sidebar.selectbox("اختر نوع الغرفة:", ["🎙️ غرفة صوتية", "📺 بث مباشر", "🎮 غرف ألعاب"])
+st.session_state.room_mode = mode
 
-for i in range(25):
-    with cols[i % 5]:
-        # نصل للبيانات من الـ session_state
-        mic = st.session_state.mics[i]
-        
-        if mic["user"] is None:
-            if st.button(f"🎤 {i+1} (متاح)", key=f"join_{i}"):
-                st.session_state.mics[i]["user"] = "عضو"
-                st.rerun()
-        else:
-            st.success(f"🎙️ {mic['user']}")
-            
-            # زر الكاميرا
-            cam_label = "📸 إيقاف الكاميرا" if mic["cam_on"] else "🎥 فتح الكاميرا"
-            if st.button(cam_label, key=f"cam_{i}"):
-                st.session_state.mics[i]["cam_on"] = not mic["cam_on"]
-                st.rerun()
-                
-            if st.button("إنزال", key=f"kick_{i}"):
-                st.session_state.mics[i] = {"user": None, "cam_on": False}
-                st.rerun()
+st.header(f"الوضع الحالي: {st.session_state.room_mode}")
 
-# 3. زر لتصفير الغرفة بالكامل في حال حدوث أي خطأ مستقبلاً
-if st.sidebar.button("🔄 إعادة ضبط الغرفة"):
-    st.session_state.mics = {i: {"user": None, "cam_on": False} for i in range(25)}
-    st.rerun()
+# 1. حالة الغرفة الصوتية
+if st.session_state.room_mode == "🎙️ غرفة صوتية":
+    cols = st.columns(5)
+    for i in range(25):
+        with cols[i % 5]:
+            mic = st.session_state.mics[i]
+            if mic["user"] is None:
+                if st.button(f"🎤 {i+1} (متاح)", key=f"join_{i}"):
+                    st.session_state.mics[i]["user"] = "عضو"
+                    st.rerun()
+            else:
+                st.success(f"🎙️ {mic['user']}")
+                if st.button("إنزال المايك", key=f"kick_{i}"):
+                    st.session_state.mics[i] = {"user": None, "cam_on": False}
+                    st.rerun()
+
+# 2. حالة البث المباشر
+elif st.session_state.room_mode == "📺 بث مباشر":
+    st.write("📺 شاشة البث المباشر ستظهر هنا...")
+    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+# 3. حالة غرف الألعاب
+elif st.session_state.room_mode == "🎮 غرف ألعاب":
+    st.write("🎮 منطقة الألعاب: قائمة الألعاب المتاحة:")
+    games = ["لعبة الدومينو", "لعبة الطاولة", "لعبة الورق"]
+    for game in games:
+        if st.button(f"بدء {game}"):
+            st.write(f"جاري تشغيل {game}...")
