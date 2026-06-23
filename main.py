@@ -1,65 +1,32 @@
-import streamlit as st
-import random
+# 1. تهيئة قائمة الداعمين في ذاكرة التطبيق
+if 'supporters' not in st.session_state:
+    st.session_state.supporters = {"Shahryar": 1000, "User_X": 800, "User_Y": 600} # أمثلة أولية
 
-# إعدادات الصفحة
-st.set_page_config(page_title="منصة شهريار", layout="wide")
-st.markdown("""<style>.stApp { background-color: #0e0e10; color: white; }</style>""", unsafe_allow_html=True)
+# دالة لإضافة دعم
+def add_support(username, points):
+    if username in st.session_state.supporters:
+        st.session_state.supporters[username] += points
+    else:
+        st.session_state.supporters[username] = points
 
-# 1. تهيئة البيانات الأساسية
-if 'room_name' not in st.session_state: st.session_state.room_name = "🌙 منصة شهريار العالمية"
-if 'admins' not in st.session_state: st.session_state.admins = ["Admin1"]
-if 'mode' not in st.session_state: st.session_state.mode = "🎙️ غرفة صوتية"
-if 'diamonds' not in st.session_state: st.session_state.diamonds = 1000
-if 'ticker_message' not in st.session_state: st.session_state.ticker_message = "📢 مرحبا بكم في منصة شهريار!"
-if 'viewers' not in st.session_state: st.session_state.viewers = random.randint(500, 1000)
-
-# قائمة الفلترة الذكية
-bad_words = ["كلمة1", "كلمة2", "كلمة3"] 
-
-# 2. شريط الإعلانات العالمي (يظهر للجميع)
-st.markdown(f"""
-    <div style="background-color: #FFD700; color: black; padding: 10px; border-radius: 5px; font-weight: bold; text-align: center; margin-bottom: 20px;">
-        {st.session_state.ticker_message}
-    </div>
-""", unsafe_allow_html=True)
-
-# 3. لوحة الإدارة والإعلانات
+# 2. إضافة لوحة الصدارة في الـ Sidebar
 with st.sidebar:
-    st.header("⚙️ لوحة الإدارة")
-    st.session_state.room_name = st.text_input("تغيير اسم الغرفة:", value=st.session_state.room_name)
-    st.session_state.mode = st.selectbox("نوع الغرفة:", ["🎙️ غرفة صوتية", "📺 بث مباشر", "🎮 غرف ألعاب"])
-    
     st.divider()
-    st.header("💎 الإعلان الممول")
-    st.write(f"رصيدك: {st.session_state.diamonds} ماسة")
-    ad_text = st.text_input("اكتب إعلانك (50 حرف):", max_chars=50)
+    st.header("🏆 قائمة كبار الداعمين")
+    # ترتيب الداعمين حسب النقاط وعرض أول 10
+    sorted_supporters = sorted(st.session_state.supporters.items(), key=lambda x: x[1], reverse=True)
     
-    if st.button("نشر الإعلان (500 ماسة)"):
-        if any(word in ad_text.lower() for word in bad_words):
-            st.error("الإعلان يحتوي على كلمات غير لائقة!")
-        elif st.session_state.diamonds >= 500:
-            st.session_state.diamonds -= 500
-            st.session_state.ticker_message = f"إعلان ممول: {ad_text}"
-            st.success("تم النشر!")
-            st.rerun()
-        else:
-            st.error("رصيد الماس غير كافٍ!")
+    for i, (name, score) in enumerate(sorted_supporters[:10]):
+        medal = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else f"{i+1}."
+        st.write(f"{medal} *{name}*: {score} نقطة")
 
-# 4. واجهة الغرفة
-st.title(f"{st.session_state.room_name} | 👁️ {st.session_state.viewers} مشاهد")
-
-if st.session_state.mode == "🎙️ غرفة صوتية":
-    cols = st.columns(5)
-    for i in range(25):
-        with cols[i % 5]:
-            st.markdown(f"*مايك {i+1}*")
-            c1, c2 = st.columns(2)
-            c1.button("🚫", key=f"k_{i}")
-            c2.button("🔇", key=f"m_{i}")
-
-elif st.session_state.mode == "📺 بث مباشر":
-    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-
-elif st.session_state.mode == "🎮 غرف ألعاب":
-    st.button("بدء تحدي الدومينو")
-    st.button("بدء تحدي الأسئلة")
+# 3. زر إرسال هدية (في واجهة المستخدم)
+st.subheader("🎁 إرسال دعم للغرفة")
+if st.button("إرسال هدية (100 ماسة)"):
+    if st.session_state.diamonds >= 100:
+        st.session_state.diamonds -= 100
+        add_support("أنت", 100) # هنا يوضع اسم المستخدم الحالي
+        st.success("تم إرسال الهدية بنجاح!")
+        st.rerun()
+    else:
+        st.error("رصيدك غير كافٍ!")
