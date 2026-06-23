@@ -1,34 +1,45 @@
 import streamlit as st
 
-# تعريف الأدمنية (يمكنك تعديل هذه القائمة)
-ADMINS = ["admin1", "admin2", "admin3"] 
-
+# تهيئة الغرفة
+if 'room_type' not in st.session_state:
+    st.session_state.room_type = "🎙️ غرفة صوتية" # الوضع الافتراضي
 if 'mics' not in st.session_state:
-    st.session_state.mics = [None] * 25 # 25 مايك
-    st.session_state.current_user = "user1" # محاكاة للمستخدم الحالي
+    st.session_state.mics = [None] * 25
 
-st.title("🎙️ منصة شهريار المفتوحة")
+st.title("🌙 منصة شهريار العالمية")
 
-# منطقة المايكات (أي شخص يمكنه الضغط والصعود)
-st.subheader("🎤 منصة المايكات")
-cols = st.columns(5)
-for i in range(25):
-    with cols[i % 5]:
-        if st.session_state.mics[i] is None:
-            if st.button(f"مايك {i+1} (متاح)", key=f"join_{i}"):
-                st.session_state.mics[i] = st.session_state.current_user
-                st.rerun()
-        else:
-            # عرض اسم الشخص الذي على المايك
-            st.success(f"🎙️ {st.session_state.mics[i]}")
-            # التحكم: يظهر فقط للأدمن أو صاحب المايك نفسه
-            if st.session_state.current_user in ADMINS or st.session_state.mics[i] == st.session_state.current_user:
-                if st.button("إنزال المايك", key=f"kick_{i}"):
+# 1. لوحة المالك (تغيير نوع الغرفة)
+with st.sidebar:
+    st.header("⚙️ لوحة تحكم المالك")
+    new_type = st.radio("اختر وضع الغرفة:", ["🎙️ غرفة صوتية", "📺 بث مباشر", "🎮 غرف ألعاب"])
+    if st.button("تحديث وضع الغرفة"):
+        st.session_state.room_type = new_type
+        st.rerun()
+
+# 2. عرض نوع الغرفة الحالي
+st.info(f"الوضع الحالي للغرفة: *{st.session_state.room_type}*")
+
+# 3. عرض المايكات (يظهر في الغرفة الصوتية فقط)
+if st.session_state.room_type == "🎙️ غرفة صوتية":
+    st.subheader("🎤 منصة المتحدثين")
+    cols = st.columns(5)
+    for i in range(25):
+        with cols[i % 5]:
+            if st.session_state.mics[i] is None:
+                if st.button(f"🎤 {i+1}", key=f"join_{i}"):
+                    st.session_state.mics[i] = "عضو"
+                    st.rerun()
+            else:
+                st.success(f"🎙️ {st.session_state.mics[i]}")
+                if st.button("إنزال", key=f"kick_{i}"):
                     st.session_state.mics[i] = None
                     st.rerun()
 
-# منطقة التحكم (للأدمنية فقط)
-if st.session_state.current_user in ADMINS:
-    with st.expander("🛡️ لوحة تحكم الأدمن"):
-        st.write("يمكنك كتم أي مايك أو طرد أي مستخدم من الغرفة.")
-        st.button("كتم الجميع")
+# 4. عرض محتوى البث أو الألعاب (بناءً على الاختيار)
+elif st.session_state.room_type == "📺 بث مباشر":
+    st.write("📺 جارٍ تحميل البث المباشر...")
+    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ") # رابط تجريبي
+
+elif st.session_state.room_type == "🎮 غرف ألعاب":
+    st.write("🎮 منطقة الألعاب: رابط اللعبة أو التحدي سيظهر هنا.")
+    st.button("بدء تحدي جديد")
