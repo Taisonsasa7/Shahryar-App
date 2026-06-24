@@ -49,4 +49,21 @@ if agencies:
     st.table(agencies)
 else:
     st.write("لا توجد وكالات مسجلة في Google Sheets.")
+[4:26 م، 2026/6/24] taisonsasa8: import streamlit as st
+from database_manager import get_all_agencies
+
+st.set_page_config(page_title="Shahryar-App", layout="centered")
+
+st.title("لوحة تحكم السوبر أدمن")
+
+st.write("جاري جلب بيانات الوكالات...")
+
+# جلب بيانات الوكالات من Google Sheets
+agencies = get_all_agencies()
+
+if agencies:
+    st.table(agencies)
+else:
+    st.write("لم يتم العثور على وكالات.")
+
 
