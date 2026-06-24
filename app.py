@@ -1,47 +1,49 @@
-import streamlit as st
+[3:51 م، 2026/6/24] taisonsasa8: import streamlit as st
 from supabase import create_client
+from database_manager import get_all_agencies
 
 # إعداد الصفحة
-st.set_page_config(page_title="شهريار", layout="centered")
+st.set_page_config(page_title="Shahryar-App", layout="centered")
 
-# إعدادات الاتصال بـ Supabase (ضع القيم الخاصة بمشروعك هنا)
-url = "ضع_هنا_رابط_Supabase_URL"
-key = "ضع_هنا_مفتاح_API_KEY"
+# إعدادات الاتصال بـ Supabase (تأكد أنك وضعت الـ URL والـ KEY في ملف الإعدادات أو هنا)
+url = "ضع_رابط_Supabase_هنا"
+key = "ضع_مفتاح_API_هنا"
 supabase = create_client(url, key)
 
-# تنسيق CSS
+# --- CSS لتنسيق اللوحة ---
 st.markdown("""
 <style>
 .stApp { background-color: #0e0e0e; color: white; }
-.room-card {
-    background-color: #1a1a1a; border-radius: 15px; padding: 15px;
-    margin-bottom: 15px; border: 1px solid #333;
-}
+.room-card { background-color: #1a1a1a; border-radius: 15px; padding: 15px; margin-bottom: 15px; border: 1px solid #333; }
 </style>
 """, unsafe_allow_html=True)
 
-# العنوان
-st.title("شهريار")
+st.title("لوحة تحكم شهريار")
 
-# جلب البيانات من قاعدة البيانات
+# 1. جلب وعرض بيانات الغرف من Supabase
+st.subheader("إدارة الغرف")
 try:
     response = supabase.table("roomsr").select("*").execute()
     rooms = response.data
-except Exception as e:
-    st.error(f"حدث خطأ في الاتصال بقاعدة البيانات: {e}")
-    rooms = []
-
-# عرض الغرف
-col1, col2 = st.columns(2)
-
-if rooms:
-    for i, room in enumerate(rooms):
-        with (col1 if i % 2 == 0 else col2):
+    if rooms:
+        for room in rooms:
             st.markdown(f"""
             <div class="room-card">
-                <h4 style="margin:0;">{room.get('room_name', 'غرفة بدون اسم')}</h4>
-                <p style="font-size:0.8em; color:#aaa;">الماس: {room.get('diamonds', 0)}</p>
+                <h4>{room.get('room_name')}</h4>
             </div>
             """, unsafe_allow_html=True)
+    else:
+        st.write("لا توجد غرف.")
+except Exception as e:
+    st.error(f"خطأ في الاتصال بـ Supabase: {e}")
+
+# 2. جلب وعرض بيانات الوكالات من Google Sheets (المنصة الثانية)
+st.divider()
+st.subheader("وكالات المنصة (Google Sheets)")
+agencies = get_all_agencies()
+
+if agencies:
+    st.table(agencies)
 else:
-    st.write("لا توجد غرف حالياً.")
+    st.write("لا توجد وكالات مسجلة في Google Sheets.")
+
