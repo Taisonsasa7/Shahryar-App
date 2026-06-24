@@ -5,12 +5,12 @@ from database_manager import get_all_agencies
 # إعداد الصفحة
 st.set_page_config(page_title="Shahryar-App", layout="centered")
 
-# إعدادات الاتصال بـ Supabase (تأكد أنك وضعت الـ URL والـ KEY في ملف الإعدادات أو هنا)
+# إعدادات الاتصال بـ Supabase
 url = "ضع_رابط_Supabase_هنا"
 key = "ضع_مفتاح_API_هنا"
 supabase = create_client(url, key)
 
-# --- CSS لتنسيق اللوحة ---
+# تنسيق CSS
 st.markdown("""
 <style>
 .stApp { background-color: #0e0e0e; color: white; }
@@ -18,7 +18,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.title("لوحة تحكم شهريار")
+st.title("لوحة تحكم السوبر أدمن")
 
 # 1. جلب وعرض بيانات الغرف من Supabase
 st.subheader("إدارة الغرف")
@@ -33,19 +33,20 @@ try:
             </div>
             """, unsafe_allow_html=True)
     else:
-        st.write("لا توجد غرف.")
+        st.write("لا توجد غرف مسجلة.")
 except Exception as e:
     st.error(f"خطأ في الاتصال بـ Supabase: {e}")
 
-# 2. جلب وعرض بيانات الوكالات من Google Sheets (المنصة الثانية)
+# 2. جلب وعرض بيانات الوكالات من Google Sheets
 st.divider()
 st.subheader("وكالات المنصة (Google Sheets)")
-agencies = get_all_agencies()
+
+# عرض رسالة تحميل مؤقتة
+with st.spinner('جاري جلب البيانات...'):
+    agencies = get_all_agencies()
 
 if agencies:
     st.table(agencies)
 else:
     st.write("لا توجد وكالات مسجلة في Google Sheets.")
-
-[3:57 م، 2026/6/24] taisonsasa8: st.write("جاري جلب البيانات...")
 
