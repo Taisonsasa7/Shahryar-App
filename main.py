@@ -16,7 +16,7 @@ if st.session_state['step'] == 'login':
     password = st.text_input("كلمة المرور:", type="password")
     if st.button("إرسال رمز التحقق"):
         # 👉 ضع إيميلك وباسوردك هنا للتحقق
-        if email == "admin@shahryar.com" and password == "admin123":
+       if email == st.secrets["ADMIN_EMAIL"] and password == st.secrets["ADMIN_PASSWORD"]:
             st.session_state['otp'] = str(random.randint(100000, 999999))
             st.info(f"تم إرسال الرمز (للأغراض التجريبية: {st.session_state['otp']})")
             st.session_state['step'] = 'verify'
