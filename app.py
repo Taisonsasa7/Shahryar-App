@@ -2,15 +2,15 @@
 from supabase import create_client
 from database_manager import get_all_agencies
 
-# إعداد الصفحة
+# 1. إعداد الصفحة (يجب أن يكون أول أمر دائماً)
 st.set_page_config(page_title="Shahryar-App", layout="centered")
 
-# إعدادات الاتصال بـ Supabase
+# 2. إعدادات الاتصال بـ Supabase
 url = "ضع_رابط_Supabase_هنا"
 key = "ضع_مفتاح_API_هنا"
 supabase = create_client(url, key)
 
-# تنسيق CSS
+# 3. تنسيق CSS
 st.markdown("""
 <style>
 .stApp { background-color: #0e0e0e; color: white; }
@@ -18,9 +18,11 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# 4. العنوان
 st.title("لوحة تحكم السوبر أدمن")
+st.write("جاري تحميل البيانات...") 
 
-# 1. جلب وعرض بيانات الغرف من Supabase
+# 5. جلب وعرض بيانات الغرف من Supabase
 st.subheader("إدارة الغرف")
 try:
     response = supabase.table("roomsr").select("*").execute()
@@ -37,13 +39,11 @@ try:
 except Exception as e:
     st.error(f"خطأ في الاتصال بـ Supabase: {e}")
 
-# 2. جلب وعرض بيانات الوكالات من Google Sheets
+# 6. جلب وعرض بيانات الوكالات من Google Sheets
 st.divider()
 st.subheader("وكالات المنصة (Google Sheets)")
 
-# عرض رسالة تحميل مؤقتة
-with st.spinner('جاري جلب البيانات...'):
-    agencies = get_all_agencies()
+agencies = get_all_agencies()
 
 if agencies:
     st.table(agencies)
