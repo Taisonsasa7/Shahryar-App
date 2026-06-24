@@ -1,4 +1,4 @@
-[3:51 م، 2026/6/24] taisonsasa8: import streamlit as st
+ import streamlit as st
 from supabase import create_client
 from database_manager import get_all_agencies
 
