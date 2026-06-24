@@ -47,3 +47,5 @@ if agencies:
 else:
     st.write("لا توجد وكالات مسجلة في Google Sheets.")
 
+[3:57 م، 2026/6/24] taisonsasa8: st.write("جاري جلب البيانات...")
+
