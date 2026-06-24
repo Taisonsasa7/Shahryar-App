@@ -32,3 +32,32 @@ def process_pi_payment(amount, wallet_address):
 # تشغيل النظام
 if _name_ == "_main_":
     print("نظام شهريار يعمل الآن...")
+# دالة لجلب قائمة كل الوكالات
+def get_all_agencies():
+    sheet = connect_to_sheet()
+    agency_sheet = sheet.worksheet("Agencies")
+    return agency_sheet.get_all_records()
+
+# دالة لجلب بيانات محفظة وكالة معينة
+def get_wallet_by_agency(agency_id):
+    sheet = connect_to_sheet()
+    wallet_sheet = sheet.worksheet("Wallets")
+    records = wallet_sheet.get_all_records()
+    for row in records:
+        if str(row['agency_id']) == str(agency_id):
+            return row
+    return None
+
+# دالة لتحديث رصيد المحفظة
+def update_wallet_balance(agency_id, new_balance):
+    sheet = connect_to_sheet()
+    wallet_sheet = sheet.worksheet("Wallets")
+    records = wallet_sheet.get_all_records()
+    
+    # البحث عن الصف وتحديثه
+    for i, row in enumerate(records):
+        if str(row['agency_id']) == str(agency_id):
+            # i + 2 لأن الصف الأول هو العناوين، والترقيم يبدأ من 1
+            wallet_sheet.update_cell(i + 2, 3, new_balance) 
+            return True
+    return False                                                                                                                                                                                                      
