@@ -1,28 +1,31 @@
-import streamlit as st
+ import streamlit as st
 from supabase import create_client
 
-# إعدادات الصفحة
+# 1. إعدادات الصفحة
 st.set_page_config(page_title="Shahryar-App", layout="centered")
 
-# قراءة البيانات من الأسرار (Secrets) التي وضعتها في Streamlit
+# 2. جلب الإعدادات من Secrets (التي قمت بحفظها الآن)
 try:
-    URL = st.secrets["SUPABASE_URL"]
-    KEY = st.secrets["SUPABASE_KEY"]
+    url = st.secrets["SUPABASE_URL"]
+    key = st.secrets["SUPABASE_KEY"]
     
     # إنشاء الاتصال
-    supabase = create_client(URL, KEY)
+    supabase = create_client(url, key)
     
     st.title("لوحة تحكم السوبر أدمن 🌙")
+    st.write("✅ تم الاتصال بقاعدة البيانات بنجاح!")
     
-    # جلب وعرض البيانات
+    # 3. عرض البيانات
     st.subheader("إدارة الغرف")
+    # تأكد من أن اسم الجدول في Supabase هو 'roomsr'
     response = supabase.table("roomsr").select("*").execute()
     
     if response.data:
         st.table(response.data)
     else:
-        st.write("الجدول فارغ أو لا توجد بيانات.")
+        st.info("الجدول 'roomsr' فارغ حالياً.")
 
 except Exception as e:
-    st.error(f"خطأ في الاتصال: {e}")
-    st.write("تأكد أن أسماء الأسرار في Streamlit تطابق SUPABASE_URL و SUPABASE_KEY.")
+    st.error(f"❌ حدث خطأ في الاتصال: {e}")
+    st.write("تأكد أن أسماء المفاتيح في الـ Secrets مطابقة تماماً (SUPABASE_URL و SUPABASE_KEY).")
+
