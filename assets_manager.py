@@ -5,8 +5,8 @@ class AssetsManager:
     def _init_(self):
         self.data = {"gifts": {}}
         # قم بوضع الرابط والمفتاح الخاصين بمشروعك هنا
-        self.url = "YOUR_SUPABASE_URL"
-        self.key = "YOUR_SUPABASE_ANON_KEY"
+  self.url = "https://dpyavcpuhsnwozgayixx.supabase.co"
+self.key = "sb_publishable_nzVEMDJq8JgAvbhL2L1NzA_LLd5hN1z"
         self.supabase = create_client(self.url, self.key)
         self.load_assets()
 
